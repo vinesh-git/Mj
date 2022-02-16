@@ -1,0 +1,28 @@
+.userdata {
+    border: 1px solid black;   
+    margin-top: 64px;
+    padding: 1rem;
+    background-color: #f7f5fa6b;
+    border-radius: 10px;
+  }
+
+  .codeDiv{
+    border: 1px solid black;
+    width: 60%;
+    margin: 0 auto;
+    padding: 10px;
+  }
+
+  .code{
+      display: flex;
+      width: 90%;
+      height: 20rem;
+      border: 1px solid black;
+      margin: 0 auto;
+      padding: 1rem;
+  }
+  textarea {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+  }
