@@ -6,7 +6,6 @@ import Posts from './components/Posts/Posts';
 import { getPosts } from './actions/posts';
 import useStyles from './styles';
 import Header from "./components/Header/Header";
-import { Link } from "react-router-dom";
 import Exjson from './pages/Exjson';
 
 

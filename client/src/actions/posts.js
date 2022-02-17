@@ -1,4 +1,4 @@
-import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
+import { FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, SELECT } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
@@ -51,3 +51,15 @@ export const deletePost = (id) => async (dispatch) => {
     console.log(error.message);
   }
 };
+
+export const selectPost = (id) => async (dispatch) => {
+  try {
+    await api.selectPost(id);
+
+    dispatch({ type: SELECT, payload: id });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
+console.log(selectPost)

@@ -12,7 +12,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { likePost, deletePost } from "../../../actions/posts";
+import { likePost, deletePost, selectPost } from "../../../actions/posts";
 import useStyles from "./styles";
 import pattern from "../../../images/pattern.jpg";
 
@@ -39,9 +39,11 @@ const Post = ({ post, setCurrentId, setCurrentSF }) => {
           size="small"
           onClick={() => 
             {
-              setCurrentId(post._id)
-              setCurrentSF(post.selectedFile)
-              window.location.href="#displayCard";
+              // setCurrentId(post._id)
+              // setCurrentSF(post.selectedFile)
+              dispatch(selectPost(post._id))
+              window.location.href="/displayCard";
+              // window.location.push("/details")
             }
         }
         >

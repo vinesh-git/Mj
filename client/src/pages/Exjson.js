@@ -15,6 +15,8 @@ import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
 import useStyles from "./style";
 import pattern from "../images/a7.jpg";
+import  Axios  from "axios";
+import FileDownload from "js-file-download";
 
 const Exjson = ({ currentId, currentSF }) => {
   const classes = useStyles();
@@ -24,6 +26,19 @@ const Exjson = ({ currentId, currentSF }) => {
   const post = useSelector((state) =>
     currentId ? state.posts.find((message) => message._id === currentId) : null
   );
+  var jf;
+  const downloadTxtFile = (e) => {
+    e.preventDefault()
+    const element = document.createElement("a");
+    const file = new Blob([jf], {
+      type: "JSON/plain"
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = "myFile.JSON";
+    document.body.appendChild(element);
+    element.click();
+  };
+
   try {
     const jsfile = currentSF;
 
@@ -31,7 +46,9 @@ const Exjson = ({ currentId, currentSF }) => {
     var jsEncode = JSON.parse(atob(jsreplace));
     var jf = JSON.stringify(jsEncode, undefined, 4);
     arr = Object.entries(post);
-    return (
+    
+
+     return (
       <>
         <Card className={classes.card} id="displayCard">
           <CardMedia className={classes.media} image={pattern} title="hello" />
@@ -49,13 +66,18 @@ const Exjson = ({ currentId, currentSF }) => {
               {arr[0][1]}
             </Typography>
           </div>
+
+          
           <Typography
             className={classes.title}
             gutterBottom
             variant="h5"
             component="h2"
           >
+
             {arr[3][1]}
+            <button  onClick={downloadTxtFile}>Download</button>
+
           </Typography>
           <div className="codeDiv">
             <div className="code">
