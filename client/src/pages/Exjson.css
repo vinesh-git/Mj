@@ -1,13 +1,16 @@
+.main-container{
+    padding: 1rem;
+}
+
 .userdata {
     border: 1px solid black;   
-    margin-top: 64px;
     padding: 1rem;
     background-color: #f7f5fa6b;
     border-radius: 10px;
   }
 
   .codeDiv{
-    border: 1px solid black;
+    border: 1px solid rgba(160, 157, 157, 0.733);
     width: 60%;
     margin: 0 auto;
     padding: 10px;
@@ -26,3 +29,64 @@
     max-width: 100%;
     height: 100%;
   }
+  #downloadButton
+  {
+    width: 200px;
+    border-radius: 20px;
+    color: #000;
+    background-color: white;
+    padding: 10px;
+    border: 1px solid black;
+    margin: 10px;
+  }
+  #downloadButton:hover{
+    border: 2px solid black ;
+  }
+  .Description
+  {
+    border: 1px solid rgb(190, 188, 188);
+    padding: 1rem;
+    background: rgba(216, 216, 216, 0.26);
+    margin-bottom: 0;
+  }
+  .container
+  {
+    margin: 2rem;
+    border: 1px solid rgb(190, 188, 188);
+  }
+.DescriptionContainer{
+
+  margin-left: 2rem;
+  margin-right: 2rem;
+  padding: 1rem;
+  }
+  .navBar{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid rgb(190, 188, 188);
+    height: 4rem;
+  }
+  ul li { display: inline-block;  *display: inline; }
+
+  li{
+    border: 1px solid rgb(255, 255, 255);
+    margin: 0 10px;
+    padding: 10px;
+    text-align: center;
+    font-size: larger;
+  }
+  li:hover{
+    color: rgb(40, 138, 195);
+    border: 1.5px solid rgb(40, 138, 195);
+    cursor: pointer;
+  }
+ .container2
+ {
+   margin: 2rem;
+   border: 1px solid rgb(190, 188, 188);
+   display: flex;
+ }
+ .left-container2{
+   /* border: 1px solid palevioletred;   */
+   width: 30%;
+ }

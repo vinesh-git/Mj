@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Container, AppBar, Grow, Grid, withWidth, Box } from '@material-ui/core';
+import Exjson from './pages/Exjson';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Temp from "./Temp";
 import { useDispatch } from 'react-redux';
-
-import Posts from './components/Posts/Posts';
-import { getPosts } from './actions/posts';
 import useStyles from './styles';
+<<<<<<< Updated upstream
 import Header from "./components/Header/Header";
 import Exjson from './pages/Exjson';
 
+=======
+import { getPosts } from './actions/posts';
+>>>>>>> Stashed changes
 
 const App = () => {
   const [currentId, setCurrentId] = useState(0);
@@ -20,22 +23,12 @@ const App = () => {
   }, [currentId,currentSF, dispatch]);
 
   return ( 
-    
-    <Container maxWidth="lg">
-      <Header />
-      <Grow in>
-        <Container style={{ margin:"1rem"}}>
-        
-          <div container justify="space-between" alignItems="stretch" spacing={3} >
-            <div item xs={5} sm={7}>
-              <Posts setCurrentId={setCurrentId} setCurrentSF={setCurrentSF} />
-            </div>
-          </div>
-        
-        </Container>
-      </Grow>
-      <Exjson currentId={currentId} currentSF={currentSF} />
-    </Container>
+   <Router>
+     <Routes>
+       <Route exact path="/"  element={<Temp currentId={currentId} setCurrentId={setCurrentId} currentSF={currentSF} setCurrentSF={setCurrentSF}/>} />
+       <Route exact path="/user" element={<Exjson currentId={currentId} currentSF={currentSF} />}/>
+     </Routes>
+   </Router>
   );
 };
 
