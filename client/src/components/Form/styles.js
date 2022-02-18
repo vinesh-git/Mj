@@ -15,6 +15,8 @@ export default makeStyles((theme) => ({
     justifyContent: 'center',
   },
   fileInput: {
+    size: "60",
+    cursor: 'pointer',
     width: '97%',
     margin: '10px 0',
   },

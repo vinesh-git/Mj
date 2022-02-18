@@ -25,9 +25,9 @@ const Header = () => {
             <button className="button primary" onClick={() => setButtonPopup(true)}>
             + New Dataset
             </button>
-            <button className="button secondary">
+            {/* <button className="button secondary">
             Your Work
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="right">

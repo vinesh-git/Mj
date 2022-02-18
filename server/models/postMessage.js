@@ -2,9 +2,10 @@ import mongoose from 'mongoose';
 
 const postSchema = mongoose.Schema({
     title: String,
-    message: String,
+    code: String,
     creator: String,
     tags: [String],
+    description: String,
     selectedFile: String,
     likeCount: {
         type: Number,

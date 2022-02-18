@@ -21,6 +21,7 @@ const Post = ({ post, setCurrentId, setCurrentSF }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
+  console.log(post.description);
   return (
     // to="/expenses" state={{ from: "occupation" }}
     <div>
@@ -41,7 +42,7 @@ const Post = ({ post, setCurrentId, setCurrentSF }) => {
               {moment(post.createdAt).fromNow()}
             </Typography>
           </div>
-          <div className={classes.overlay2}>
+          {/* <div className={classes.overlay2}>
             <Button
               style={{ color: "white" }}
               size="small"
@@ -52,7 +53,7 @@ const Post = ({ post, setCurrentId, setCurrentSF }) => {
             >
               <MoreHorizIcon fontSize="default" />
             </Button>
-          </div>
+          </div> */}
           <div className={classes.details}>
             <Typography variant="body2" color="textSecondary" component="h2">
               {post.tags.map((tag) => `#${tag} `)}
@@ -68,7 +69,7 @@ const Post = ({ post, setCurrentId, setCurrentSF }) => {
           </Typography>
           <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
-              {post.message}
+              {post.code}
             </Typography>
           </CardContent>
         </div>

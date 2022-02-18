@@ -9,10 +9,6 @@ import {
   Button,
   Typography,
 } from "@material-ui/core/";
-import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
-import DeleteIcon from "@material-ui/icons/Delete";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
-import moment from "moment";
 import useStyles from "./style";
 import pattern from "../images/a7.jpg";
 
@@ -24,7 +20,7 @@ const Exjson = ({ currentId, currentSF }) => {
   const post = useSelector((state) =>
     currentId ? state.posts.find((message) => message._id === currentId) : null
   );
-
+  console.log(post);
   var jf;
   const downloadTxtFile = () => {
     const element = document.createElement("a");
@@ -43,7 +39,7 @@ const Exjson = ({ currentId, currentSF }) => {
     var jsEncode = JSON.parse(atob(jsreplace));
     jf = JSON.stringify(jsEncode, undefined, 4);
     arr = Object.entries(post);
-    console.log(jf);
+    console.log(arr);
     return (
       <>
         <div className="main-container">
@@ -60,10 +56,10 @@ const Exjson = ({ currentId, currentSF }) => {
             <div className="navBar">
               <ul>
                 <li>Data</li>
-                <li>Code(1)</li>
+                {/* <li>Code</li>
                 <li>Discussion</li>
                 <li>Activity</li>
-                <li>Metadata</li>
+                <li>Metadata</li> */}
 
                 <button id="downloadButton" onClick={downloadTxtFile}>
                   Download
@@ -72,7 +68,7 @@ const Exjson = ({ currentId, currentSF }) => {
             </div>
             <div className="container">
               <div className="Description">Description</div>
-              <div className="DescriptionContainer"> iuashdbaksdnk</div>
+              <div className="DescriptionContainer">{arr[5][1]}</div>
             </div>
             <div className="container2">
               <div className="left-container2">
