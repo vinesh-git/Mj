@@ -9,19 +9,19 @@ import { getPosts } from './actions/posts';
 
 const App = () => {
   const [currentId, setCurrentId] = useState(0);
-  const [currentSF,setCurrentSF] = useState(0);
+  const [currentP,setCurrentP] = useState(0);
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [currentId,currentSF, dispatch]);
+  }, [currentId,currentP, dispatch]);
 
   return ( 
    <Router>
      <Routes>
-       <Route exact path="/"  element={<Temp currentId={currentId} setCurrentId={setCurrentId} currentSF={currentSF} setCurrentSF={setCurrentSF}/>} />
-       <Route exact path="/user" element={<Exjson currentId={currentId} currentSF={currentSF} />}/>
+       <Route exact path="/"  element={<Temp currentId={currentId} setCurrentId={setCurrentId} currentP={currentP} setCurrentP={setCurrentP}/>} />
+       <Route exact path="/user" element={<Exjson currentId={currentId} currentP={currentP} />}/>
      </Routes>
    </Router>
   );

@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
-import FileBase from 'react-file-base64';
 
 import useStyles from './styles';
 import { createPost, updatePost } from '../../actions/posts';
 
-const Form = ({ currentId, setCurrentId }) => {
+const Form = ({ currentId, setCurrentId, setTrigger }) => {
   const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', description:'', selectedFile: '' });
   const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
   const dispatch = useDispatch();
@@ -55,11 +54,12 @@ const Form = ({ currentId, setCurrentId }) => {
       }
       else{
         if (currentId === 0) {
-          console.log(Object.entries(postData))
           dispatch(createPost(postData));
+          setTrigger(false);
           clear();
         } else {
           dispatch(updatePost(currentId, postData));
+          setTrigger(false);
           clear();
         }
       }
@@ -68,7 +68,7 @@ const Form = ({ currentId, setCurrentId }) => {
   
   return (
     <Paper className={classes.paper}>
-      <form name="dform" autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
+      <form name="dform" autoComplete="off"  className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
         <Typography variant="h6">{currentId ? `Editing "${post.title}"` : 'Input the Dataset'}</Typography>
         <TextField name="creator" variant="outlined" label="Creator" fullWidth value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} required/>
         <TextField name="title" variant="outlined" label="Title" fullWidth value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} required/>

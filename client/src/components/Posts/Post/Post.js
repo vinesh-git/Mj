@@ -17,7 +17,7 @@ import useStyles from "./styles";
 import pattern from "../../../images/pattern.jpg";
 import { useNavigate } from 'react-router-dom';
 
-const Post = ({ post, setCurrentId, setCurrentSF }) => {
+const Post = ({ post, setCurrentId, setCurrentP }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Post = ({ post, setCurrentId, setCurrentSF }) => {
       <Card className={classes.card}>
         <div onClick={() => {
                 setCurrentId(post._id);
-                setCurrentSF(post.selectedFile);
+                setCurrentP(post);
                 navigate("/user");
               }}>
           <CardMedia
@@ -47,7 +47,7 @@ const Post = ({ post, setCurrentId, setCurrentSF }) => {
               size="small"
               onClick={() => {
                 setCurrentId(post._id);
-                setCurrentSF(post.selectedFile);
+                setCurrentP(post);
               }}
             >
               <MoreHorizIcon fontSize="default" />

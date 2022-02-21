@@ -10,13 +10,13 @@ import { Link } from "react-router-dom";
 import Exjson from './pages/Exjson';
 
 
-const Temp = ({currentId,currentSF,setCurrentId,setCurrentSF}) => {
+const Temp = ({currentId,currentP,setCurrentId,setCurrentP}) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
   useEffect(() => {
     dispatch(getPosts());
-  }, [currentId,currentSF, dispatch]);
+  }, [currentId,currentP, dispatch]);
 
   return ( 
     <>
@@ -27,7 +27,7 @@ const Temp = ({currentId,currentSF,setCurrentId,setCurrentSF}) => {
         <Container style={{ margin:"1rem"}}>
           <div container justify="space-between" alignItems="stretch" spacing={3} >
             <div item xs={5} sm={7}>
-              <Posts setCurrentId={setCurrentId} setCurrentSF={setCurrentSF} />
+              <Posts setCurrentId={setCurrentId} setCurrentP={setCurrentP} />
             </div>
           </div>
         

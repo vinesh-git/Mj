@@ -12,9 +12,8 @@ import {
 import useStyles from "./style";
 import pattern from "../images/a7.jpg";
 
-const Exjson = ({ currentId, currentSF }) => {
+const Exjson = ({ currentId, currentP }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
   var arr = [];
 
   const post = useSelector((state) =>
@@ -33,11 +32,12 @@ const Exjson = ({ currentId, currentSF }) => {
   };
 
   try {
-    const jsfile = currentSF;
+    const jsfile = currentP.selectedFile;
     const jsreplace = jsfile.replace("data:application/json;base64,", "");
     var jsEncode = JSON.parse(atob(jsreplace));
     jf = JSON.stringify(jsEncode, undefined, 4);
     arr = Object.entries(post);
+    console.log(arr);
     return (
       <>
         <div className="main-container">
@@ -48,7 +48,7 @@ const Exjson = ({ currentId, currentSF }) => {
               title="hello"
             />
             <div className={classes.overlay}>
-              <Typography variant="h6">{arr[1][1]}</Typography>
+              <Typography variant="h6">{currentP.title}</Typography>
               <Typography variant="body2"></Typography>
             </div>
             <div className="navBar">
@@ -66,7 +66,7 @@ const Exjson = ({ currentId, currentSF }) => {
             </div>
             <div className="container">
               <div className="Description">Description</div>
-              <div className="DescriptionContainer">{arr[5][1]}</div>
+              <div className="DescriptionContainer">{currentP.description}</div>
             </div>
             <div className="container2">
               <div className="left-container2">
@@ -85,7 +85,7 @@ const Exjson = ({ currentId, currentSF }) => {
                   variant="h5"
                   component="h2"
                 >
-                  {arr[3][1]}
+                  {currentP.creator}
                 </Typography>
                 <CardContent>
                   <Typography
@@ -93,7 +93,7 @@ const Exjson = ({ currentId, currentSF }) => {
                     color="textSecondary"
                     component="p"
                   >
-                    {arr[2][1]}
+                    {currentP.code}
                   </Typography>
                 </CardContent>
               </div>
@@ -111,7 +111,7 @@ const Exjson = ({ currentId, currentSF }) => {
               </div>
             </div>
             <CardActions className={classes.cardActions}>
-              {arr[7][1]}
+              {currentP.likeCount}
             </CardActions>
           </Card>
           <div style={{ height: "20rem" }}></div>

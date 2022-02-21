@@ -35,8 +35,7 @@ const Header = () => {
         </div>
       </div>
       <Popup trigger={buttonPopup} setTrigger = {setButtonPopup}>
-          <Form currentId={currentId} setCurrentId={setCurrentId}></Form>
-      
+          <Form currentId={currentId} setCurrentId={setCurrentId} setTrigger={setButtonPopup}></Form>
       </Popup>
     </>
   );
