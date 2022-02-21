@@ -20,7 +20,6 @@ const Exjson = ({ currentId, currentSF }) => {
   const post = useSelector((state) =>
     currentId ? state.posts.find((message) => message._id === currentId) : null
   );
-  console.log(post);
   var jf;
   const downloadTxtFile = () => {
     const element = document.createElement("a");
@@ -39,7 +38,6 @@ const Exjson = ({ currentId, currentSF }) => {
     var jsEncode = JSON.parse(atob(jsreplace));
     jf = JSON.stringify(jsEncode, undefined, 4);
     arr = Object.entries(post);
-    console.log(arr);
     return (
       <>
         <div className="main-container">

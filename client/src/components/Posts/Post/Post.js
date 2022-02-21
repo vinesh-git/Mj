@@ -21,7 +21,6 @@ const Post = ({ post, setCurrentId, setCurrentSF }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
-  console.log(post.description);
   return (
     // to="/expenses" state={{ from: "occupation" }}
     <div>
