@@ -75,8 +75,8 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
         <TextField name="code" variant="outlined" label="Code" fullWidth multiline rows={4} value={postData.code} onChange={(e) => setPostData({ ...postData, code: e.target.value })} />
         <TextField name="description" variant="outlined" label="Description" fullWidth multiline rows={4} value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })} />
         <TextField name="tags" variant="outlined" label="Tags (coma separated)" fullWidth value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />
-        <input type="file"  id ='helo' name="jsonfile" onChange={loadFileAsText} required/> 
-        {/* <div className={classes.fileInput}><FileBase type="file" name="jonfile" size={60} multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div> */}
+        <div className={classes.fileInput}><input type="file"  id ='helo' name="jsonfile" onChange={loadFileAsText} required/> </div>
+        {/* <FileBase type="file" name="jonfile" size={60} multiple={false} onDone={({ base64 }) => setPostData({ ...postData, selectedFile: base64 })} /></div> */}
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>

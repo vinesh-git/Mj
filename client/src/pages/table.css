@@ -1,0 +1,19 @@
+.Table {
+    font-family: sans-serif;
+    text-align: center;
+    margin-bottom: 3%;
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+  th,
+  td {
+    background: silver;
+    padding: 10px;
+    white-space:pre;
+  }
+  
+  p {
+    text-align: left;
+    white-space:pre;
+  }
+  

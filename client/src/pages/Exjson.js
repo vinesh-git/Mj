@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Table from "./Table";
+import "./table.css";
+
 import "./Exjson.css";
 import {
   Card,
@@ -11,15 +14,27 @@ import {
 } from "@material-ui/core/";
 import useStyles from "./style";
 import pattern from "../images/a7.jpg";
+import ExjsonList from "./ExjsonList";
 
 const Exjson = ({ currentId, currentP }) => {
   const classes = useStyles();
   var arr = [];
+  const [selectedT,setSelectedT] = useState("data");
+  const list = [
+    {
+      id: "data",
+      title: "Data",
+    },
+    {
+      id: "code",
+      title: "Code",
+    }
+  ];
 
   const post = useSelector((state) =>
     currentId ? state.posts.find((message) => message._id === currentId) : null
   );
-  var jf;
+  var jf,jsEncode;
   const downloadTxtFile = () => {
     const element = document.createElement("a");
     const file = new Blob([jf], {
@@ -30,14 +45,14 @@ const Exjson = ({ currentId, currentP }) => {
     document.body.appendChild(element);
     element.click();
   };
-
   try {
     const jsfile = currentP.selectedFile;
     const jsreplace = jsfile.replace("data:application/json;base64,", "");
-    var jsEncode = JSON.parse(atob(jsreplace));
+    jsEncode = JSON.parse(atob(jsreplace));
+    
+    var oktest = [jsEncode];
     jf = JSON.stringify(jsEncode, undefined, 4);
-    arr = Object.entries(post);
-    console.log(arr);
+    // arr = Object.entries(post);
     return (
       <>
         <div className="main-container">
@@ -53,12 +68,9 @@ const Exjson = ({ currentId, currentP }) => {
             </div>
             <div className="navBar">
               <ul>
-                <li>Data</li>
-                {/* <li>Code</li>
-                <li>Discussion</li>
-                <li>Activity</li>
-                <li>Metadata</li> */}
-
+                {list.map((item)=>(
+                  <ExjsonList title={item.title} active={selectedT === item.id} id={item.id} setSelectedT/>
+                ))}
                 <button id="downloadButton" onClick={downloadTxtFile}>
                   Download
                 </button>
@@ -114,7 +126,10 @@ const Exjson = ({ currentId, currentP }) => {
               {currentP.likeCount}
             </CardActions>
           </Card>
-          <div style={{ height: "20rem" }}></div>
+          <div style={{ height: "1rem" }}></div>
+        </div>
+        <div className="Table">
+            <Table data={oktest}/>
         </div>
       </>
     );
