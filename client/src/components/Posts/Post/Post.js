@@ -66,11 +66,11 @@ const Post = ({ post, setCurrentId, setCurrentP }) => {
           >
             {post.title}
           </Typography>
-          <CardContent>
+          {/* <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">
               {post.code}
             </Typography>
-          </CardContent>
+          </CardContent> */}
         </div>
         <CardActions className={classes.cardActions}>
           <Button
