@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import "./Exjson.css";
 import Table from "./Table";
 import "./table.css";
 
-import "./Exjson.css";
 import {
   Card,
   CardActions,
@@ -14,27 +14,63 @@ import {
 } from "@material-ui/core/";
 import useStyles from "./style";
 import pattern from "../images/a7.jpg";
-import ExjsonList from "./ExjsonList";
-
+import Plist from "./PageLists/Plist";
 const Exjson = ({ currentId, currentP }) => {
-  const classes = useStyles();
-  var arr = [];
-  const [selectedT,setSelectedT] = useState("data");
-  const list = [
+
+  var jf,tableFormat;
+  try{
+    const jsfile = currentP.selectedFile;
+    const jsreplace = jsfile.replace("data:application/json;base64,", "");
+    var jsEncode = JSON.parse(atob(jsreplace));
+    if(jsEncode[0] === '[')
     {
-      id: "data",
+        tableFormat = jsEncode;
+    }
+    else{
+      tableFormat = [jsEncode];
+    }
+    jf = JSON.stringify(jsEncode, undefined, 4);
+  }catch(e){
+      console.log(e);
+  }
+  if(typeof(currentP.code) === 'undefined')
+  {
+    currentP.code = "No Code Input Given";
+  }
+  if(currentP.description === "")
+  {
+    currentP.description = "No Description Provided";
+  }
+  const dataPart = [
+    {
+      id: 1,
       title: "Data",
-    },
-    {
-      id: "code",
-      title: "Code",
+      content: currentP.description,
+      creator: currentP.creator,
+      code: "",
+      jff: jf
     }
   ];
+  const codePart = [
+    {
+      id: 1,
+      title: "Data",
+      content: currentP.description,
+      creator: currentP.creator,
+      code: "",
+      jff: currentP.code
+    }
+  ];
+
+  const [selected, setSelected] = useState("data");
+  const [data, setData] = useState([]);
+
+  const classes = useStyles();
 
   const post = useSelector((state) =>
     currentId ? state.posts.find((message) => message._id === currentId) : null
   );
-  var jf,jsEncode;
+  
   const downloadTxtFile = () => {
     const element = document.createElement("a");
     const file = new Blob([jf], {
@@ -45,14 +81,34 @@ const Exjson = ({ currentId, currentP }) => {
     document.body.appendChild(element);
     element.click();
   };
+  const list1 = [
+    {
+      id: "data",
+      titlee: "Data",
+    },
+    {
+      id: "code",
+      titlee: "Code",
+    }
+  ];
+  useEffect(() => {
+
+    switch (selected) {
+      case "data":
+        setData(dataPart);
+        break;
+      case "code":
+        setData(codePart);
+        break;
+      default:
+        setData(dataPart)
+        break;
+    }
+
+  }, [selected])
+
   try {
-    const jsfile = currentP.selectedFile;
-    const jsreplace = jsfile.replace("data:application/json;base64,", "");
-    jsEncode = JSON.parse(atob(jsreplace));
     
-    var oktest = [jsEncode];
-    jf = JSON.stringify(jsEncode, undefined, 4);
-    // arr = Object.entries(post);
     return (
       <>
         <div className="main-container">
@@ -68,60 +124,66 @@ const Exjson = ({ currentId, currentP }) => {
             </div>
             <div className="navBar">
               <ul>
-                {list.map((item)=>(
-                  <ExjsonList title={item.title} active={selectedT === item.id} id={item.id} setSelectedT/>
+                {list1.map((item) => (
+                  <Plist titlee={item.titlee} active={selected === item.id} id={item.id} setSelected={setSelected} />
                 ))}
                 <button id="downloadButton" onClick={downloadTxtFile}>
                   Download
                 </button>
               </ul>
             </div>
-            <div className="container">
-              <div className="Description">Description</div>
-              <div className="DescriptionContainer">{currentP.description}</div>
-            </div>
-            <div className="container2">
-              <div className="left-container2">
-                <div className={classes.details}>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="h3"
-                  >
-                    <h1>Data Explorer:</h1>
-                  </Typography>
+            {data.map((d) => (
+              <>
+                <div className="container">
+                  <div className="description">Description</div>
+                  <div className="DescriptionContainer">{d.content}</div>
                 </div>
-                <Typography
-                  className={classes.title}
-                  gutterBottom
-                  variant="h5"
-                  component="h2"
-                >
-                  {currentP.creator}
-                </Typography>
-                <CardContent>
-                  <Typography
-                    variant="body2"
-                    color="textSecondary"
-                    component="p"
-                  >
-                    {currentP.code}
-                  </Typography>
-                </CardContent>
-              </div>
-              <div className="codeDiv">
-                <div className="code">
-                  <code id="output">
-                    <textarea
-                      rows="60"
-                      cols="80"
-                      id="textbox"
-                      value={jf}
-                    ></textarea>
-                  </code>
+                <div className="container2">
+                  <div className="left-container2">
+                    <div className={classes.details}>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="h3"
+                      >
+                        <h1>Data Explorer:</h1>
+                      </Typography>
+                    </div>
+                    <Typography
+                      className={classes.title}
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                    >
+                      {d.creator}
+                    </Typography>
+                    <CardContent>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {d.code}
+                      </Typography>
+                    </CardContent>
+                  </div>
+                  <div className="codeDiv">
+                    <div className="code">
+                      <code id="output">
+                        <textarea
+                          rows="60"
+                          cols="80"
+                          id="textbox"
+                          value={
+                            d.jff
+                          }
+                        ></textarea>
+                      </code>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </>
+            ))}
             <CardActions className={classes.cardActions}>
               {currentP.likeCount}
             </CardActions>
@@ -129,7 +191,7 @@ const Exjson = ({ currentId, currentP }) => {
           <div style={{ height: "1rem" }}></div>
         </div>
         <div className="Table">
-            <Table data={oktest}/>
+            <Table data={tableFormat}/>
         </div>
       </>
     );

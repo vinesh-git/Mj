@@ -128,7 +128,7 @@ const Table = ({data}) => {
     </React.Fragment>
   );
   }catch(err){
-      return <>{console.log(err)}</>
+      return (<>{console.log(err)}</>);
   }
 };
 
