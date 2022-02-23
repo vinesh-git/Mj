@@ -3,6 +3,18 @@ import React from "react";
 const Table = ({data}) => {
   const dataImport = data[0];
   try{
+    function multiRowtT()
+    {
+      var n = data.length;
+      let results = [];
+      for(let i = 0; i < n; i++)
+      {
+        var tablerow = renderResults(data[i]);
+        results.push(<tr>{tablerow}</tr>);
+      }
+      return results;
+    }
+
   function convertToObj(y)
   {
         var mainlen = Object.entries(y).length;
@@ -55,7 +67,7 @@ const Table = ({data}) => {
       }
     }
     subs.map((x, i) => {
-      if(typeof(x) === 'string' || typeof(x) === 'int' || typeof(x) === 'boolean')
+      if(typeof(x) === 'string' || typeof(x) === 'number' || typeof(x) === 'boolean')
       {
         subs[i] = {_:x};
       }
@@ -70,9 +82,9 @@ const Table = ({data}) => {
     return subHeaders;
   }
 
-  function renderResults() {
+  function renderResults(dataImportt) {
     let results = [];
-    let res = Object.values(dataImport);
+    let res = Object.values(dataImportt);
 
     for(let i = 0; i<res.length;i++){
       if(Array.isArray(res[i]))
@@ -83,9 +95,9 @@ const Table = ({data}) => {
     
     res.map((x, i) => {
         
-      if(typeof(x) === 'string' || typeof(x) === 'int' || typeof(x) === 'boolean')
+      if(typeof(x) === 'string' || typeof(x) === 'number' || typeof(x) === 'boolean')
       {
-        if(typeof(x) === 'int' || typeof(x) === 'boolean')
+        if(typeof(x) === 'number' || typeof(x) === 'boolean')
         {
             x = String(x);
         }
@@ -99,7 +111,6 @@ const Table = ({data}) => {
       }
       return results;
     });
-
     return results;
   }
   return (
@@ -111,7 +122,7 @@ const Table = ({data}) => {
         </thead>
         <tbody>
           <tr>{renderSubHeaders()}</tr>
-          <tr>{renderResults()}</tr>
+          {multiRowtT()}
         </tbody>
       </table>
     </React.Fragment>
