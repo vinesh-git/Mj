@@ -1,0 +1,14 @@
+.plist{
+    font-size: 14x;
+    margin-left: 10px;
+    align-items: left;
+    padding: 7px;
+    cursor: white;
+    width: 100px;
+    border-top-right-radius: 10px;
+
+    &.active {
+        background-color: rgb(0, 0, 0);
+        color: white;   
+    }
+}

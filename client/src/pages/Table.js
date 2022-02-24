@@ -1,8 +1,8 @@
 import React from "react";
 
 const Table = ({data}) => {
-  const dataImport = data[0];
   try{
+    const dataImport = data[0];
     function multiRowtT()
     {
       var n = data.length;
@@ -130,7 +130,9 @@ const Table = ({data}) => {
     </React.Fragment>
   );
   }catch(err){
-      return (<>{console.log(err)}</>);
+      return (<>
+      <h1 id='h11'>Error in JSON File!!</h1>
+      {console.log(err)}</>);
   }
 };
 

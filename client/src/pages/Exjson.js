@@ -6,7 +6,6 @@ import "./table.css";
 
 import {Card,CardActions,CardContent,CardMedia,Button,Typography} from "@material-ui/core/";
 import useStyles from "./style";
-import Home from '@material-ui/icons/Home';
 import pattern from "../images/a7.jpg";
 import Plist from "./PageLists/Plist";
 import { useNavigate } from 'react-router-dom';
@@ -19,12 +18,12 @@ const Exjson = ({ currentId, currentP }) => {
     const jsfile = currentP.selectedFile;
     const jsreplace = jsfile.replace("data:application/json;base64,", "");
     var jsEncode = JSON.parse(atob(jsreplace));
-    if(jsEncode[0] === '[')
+    if(!Array.isArray(jsEncode))
     {
-        tableFormat = jsEncode;
+      tableFormat = [jsEncode];
     }
     else{
-      tableFormat = [jsEncode];
+      tableFormat = jsEncode;
     }
     jf = JSON.stringify(jsEncode, undefined, 4);
   }catch(e){
@@ -126,7 +125,6 @@ const Exjson = ({ currentId, currentP }) => {
             </div>
             <div className="navBar">
               <ul>
-                
                 {list1.map((item) => (
                   <Plist titlee={item.titlee} active={selected === item.id} id={item.id} setSelected={setSelected} />
                 ))}
@@ -135,6 +133,7 @@ const Exjson = ({ currentId, currentP }) => {
                 </button>
               </ul>
             </div>
+            <div className="tab">
             {data.map((d) => (
               <>
                 <div className="container">
@@ -148,20 +147,11 @@ const Exjson = ({ currentId, currentP }) => {
                         <h1>Data Explorer:</h1>
                       </Typography>
                     </div>
-                    <Typography
-                      className={classes.title}
-                      gutterBottom
-                      variant="h5"
-                      component="h2"
-                    >
+                    <Typography className={classes.title} gutterBottom variant="h5" component="h2">
                       {d.creator}
                     </Typography>
                     <CardContent>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="p"
-                      >
+                      <Typography variant="body2" color="textSecondary" component="p" >
                         {d.code}
                       </Typography>
                     </CardContent>
@@ -169,14 +159,7 @@ const Exjson = ({ currentId, currentP }) => {
                   <div className="codeDiv">
                     <div className="code">
                       <code id="output">
-                        <textarea
-                          rows="60"
-                          cols="80"
-                          id="textbox"
-                          value={
-                            d.jff
-                          }
-                        ></textarea>
+                        <textarea  rows="60" cols="80" id="textbox" value={d.jff}></textarea>
                       </code>
                     </div>
                   </div>
@@ -186,17 +169,21 @@ const Exjson = ({ currentId, currentP }) => {
             <div className="Table">
               <Table data={tableFormat}/>
             </div>
+            </div>
             <CardActions className={classes.cardActions}>
               {currentP.likeCount}
             </CardActions>
           </Card>
+          
           <div style={{ height: "1rem" }}></div>
         </div>
+        
         
       </>
     );
   } catch (err) {
-    return <>{console.log(err)}</>;
+    return <>
+    {console.log(err)}</>;
   }
 };
 

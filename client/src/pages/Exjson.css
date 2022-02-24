@@ -45,14 +45,16 @@
   .description
   {
     border: 1px solid rgb(190, 188, 188);
+    background-color: rgba(223, 219, 219, 0.116);
     padding: 1rem;
-    background: rgba(216, 216, 216, 0.26);
+    
     margin-bottom: 0;
   }
   .container
   {
     margin: 2rem;
     border: 1px solid rgb(190, 188, 188);
+    
   }
 .DescriptionContainer{
 
@@ -67,8 +69,8 @@
 
   li{
     border: 1px solid rgb(255, 255, 255);
-    margin: 0 10px;
-    padding: 5px;
+    margin: 0 0;
+    padding: 0px;
     text-align: center;
     font-size: larger;
   }
@@ -81,6 +83,7 @@
  {
    margin: 2rem;
    border: 1px solid rgb(190, 188, 188);
+   background-color: rgba(223, 219, 219, 0.116);
    display: flex;
  }
  .left-container2{
@@ -88,13 +91,14 @@
    width: 30%;
    background: rgba(216, 216, 216, 0.26);
  }
-
  .fa-home{
-   color: white;
-   
-   
+   color: white; 
  }
  .icon-pos{
    margin-left: 73rem;
    bottom: 3rem;
+ }
+
+ .tab{
+  border: 2px solid black;
  }
