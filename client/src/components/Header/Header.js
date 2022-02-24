@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import "./header.css";
 import {  Grid } from '@material-ui/core';
 import Popup from "../PopUp/Popup";
-import Form from "../Form/Form";
 import img from "../../images/log.png"
+import Form from '../ContactFrom_v5/Form';
 
 
 const Header = () => {
@@ -35,7 +35,8 @@ const Header = () => {
         </div>
       </div>
       <Popup trigger={buttonPopup} setTrigger = {setButtonPopup}>
-          <Form currentId={currentId} setCurrentId={setCurrentId} setTrigger={setButtonPopup}></Form>
+        <Form currentId={currentId} setCurrentId={setCurrentId} setTrigger={setButtonPopup}/>
+          {/* <Form currentId={currentId} setCurrentId={setCurrentId} setTrigger={setButtonPopup}></Form> */}
       </Popup>
     </>
   );
