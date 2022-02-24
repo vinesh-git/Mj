@@ -116,6 +116,7 @@ const Table = ({data}) => {
   return (
     <React.Fragment>
       <h2>Table Format</h2>
+      <div className="scrolling-wrapper">
       <table align="center">
         <thead>
           <tr>{renderHeaderCells()}</tr>
@@ -125,6 +126,7 @@ const Table = ({data}) => {
           {multiRowtT()}
         </tbody>
       </table>
+      </div>
     </React.Fragment>
   );
   }catch(err){

@@ -31,18 +31,18 @@
   }
   #downloadButton
   {
-    width: 200px;
+    width: 100px;
     border-radius: 20px;
     color: #000;
     background-color: white;
-    padding: 10px;
+    padding: 0px;
     border: 1px solid black;
     margin: 10px;
   }
   #downloadButton:hover{
     border: 2px solid black ;
   }
-  .Description
+  .description
   {
     border: 1px solid rgb(190, 188, 188);
     padding: 1rem;
@@ -61,10 +61,7 @@
   padding: 1rem;
   }
   .navBar{
-    display: flex;
-    flex-direction: row;
-    border: 1px solid rgb(190, 188, 188);
-    height: 5rem;
+    padding: 0px;
   }
   ul li { display: inline-block;  *display: inline; }
 
@@ -89,4 +86,15 @@
  .left-container2{
    /* border: 1px solid palevioletred;   */
    width: 30%;
+   background: rgba(216, 216, 216, 0.26);
+ }
+
+ .fa-home{
+   color: white;
+   
+   
+ }
+ .icon-pos{
+   margin-left: 73rem;
+   bottom: 3rem;
  }

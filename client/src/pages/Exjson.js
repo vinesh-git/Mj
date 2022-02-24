@@ -4,17 +4,14 @@ import "./Exjson.css";
 import Table from "./Table";
 import "./table.css";
 
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Button,
-  Typography,
-} from "@material-ui/core/";
+import {Card,CardActions,CardContent,CardMedia,Button,Typography} from "@material-ui/core/";
 import useStyles from "./style";
+import Home from '@material-ui/icons/Home';
 import pattern from "../images/a7.jpg";
 import Plist from "./PageLists/Plist";
+import { useNavigate } from 'react-router-dom';
+
+
 const Exjson = ({ currentId, currentP }) => {
 
   var jf,tableFormat;
@@ -66,6 +63,7 @@ const Exjson = ({ currentId, currentP }) => {
   const [data, setData] = useState([]);
 
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const post = useSelector((state) =>
     currentId ? state.posts.find((message) => message._id === currentId) : null
@@ -120,15 +118,20 @@ const Exjson = ({ currentId, currentP }) => {
             />
             <div className={classes.overlay}>
               <Typography variant="h6">{currentP.title}</Typography>
+              <div className="icon-pos">
+              <button   onClick={()=>{navigate("/");}}><i class="fa fa-home fa-3x"></i></button>
+
+              </div>
               <Typography variant="body2"></Typography>
             </div>
             <div className="navBar">
               <ul>
+                
                 {list1.map((item) => (
                   <Plist titlee={item.titlee} active={selected === item.id} id={item.id} setSelected={setSelected} />
                 ))}
                 <button id="downloadButton" onClick={downloadTxtFile}>
-                  Download
+                <i class="fa fa-download fa-lg"> JSON</i>
                 </button>
               </ul>
             </div>
@@ -141,11 +144,7 @@ const Exjson = ({ currentId, currentP }) => {
                 <div className="container2">
                   <div className="left-container2">
                     <div className={classes.details}>
-                      <Typography
-                        variant="body2"
-                        color="textSecondary"
-                        component="h3"
-                      >
+                      <Typography variant="body2"color="textSecondary"component="h3">
                         <h1>Data Explorer:</h1>
                       </Typography>
                     </div>
@@ -184,15 +183,16 @@ const Exjson = ({ currentId, currentP }) => {
                 </div>
               </>
             ))}
+            <div className="Table">
+              <Table data={tableFormat}/>
+            </div>
             <CardActions className={classes.cardActions}>
               {currentP.likeCount}
             </CardActions>
           </Card>
           <div style={{ height: "1rem" }}></div>
         </div>
-        <div className="Table">
-            <Table data={tableFormat}/>
-        </div>
+        
       </>
     );
   } catch (err) {
