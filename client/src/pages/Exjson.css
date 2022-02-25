@@ -47,13 +47,13 @@
     border: 1px solid rgb(190, 188, 188);
     background-color: rgba(223, 219, 219, 0.116);
     padding: 1rem;
-    
     margin-bottom: 0;
   }
   .container
   {
     margin: 2rem;
     border: 1px solid rgb(190, 188, 188);
+    /* border: 5px solid rgb(175, 13, 13); */
     
   }
 .DescriptionContainer{
@@ -61,6 +61,7 @@
   margin-left: 2rem;
   margin-right: 2rem;
   padding: 1rem;
+
   }
   .navBar{
     padding: 0px;
@@ -93,12 +94,96 @@
  }
  .fa-home{
    color: white; 
+   background-color: black;
  }
  .icon-pos{
-   margin-left: 73rem;
-   bottom: 3rem;
+   margin-left: 85rem;
+   margin-top: 2rem;
  }
 
  .tab{
   border: 2px solid black;
  }
+
+
+
+ @media only screen and (min-width : 321px) and (max-width : 480px) {
+
+  /* Styles for some mobile devices */
+  .main-container{
+    padding: 0rem;
+  }
+  .container
+  {
+    margin: 0.1rem;
+    border: 2px solid rgb(190, 188, 188);
+  }
+
+  .navBar{
+    padding: 0px;
+    border: 2px solid rgb(190, 188, 188);
+    margin-top: 10%;
+    margin-bottom: 2%;
+
+  }
+  ul{
+    display: inline;
+  }
+  li{
+    border: 2px solid rgba(0, 183, 255, 0.712);
+  }
+  li:hover{
+    cursor: pointer;
+  }
+  .description
+  {
+    border: 1px solid rgb(190, 188, 188);
+    background-color: rgba(223, 219, 219, 0.116);
+    padding: 0.5rem;
+    margin-bottom: 0;
+  }
+  .DescriptionContainer{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    padding: 0.5rem;
+    }
+    .container2
+    {
+      margin: 0.5rem;
+      border: 3px solid rgb(190, 188, 188);
+      background-color: rgba(223, 219, 219, 0.116);
+      display: grid;
+    }
+    .left-container2{
+      /* border: 20px solid palevioletred;   */
+      width: 100%;
+      padding: 0;
+      background: rgba(216, 216, 216, 0.26);
+      height: 80%;
+    }
+    #dataexplorer {
+      padding: 0%;
+      font-size: 10px;
+    }
+    #creator {
+      padding: 0%;
+      font-size: 15px;
+      align-items: center;
+    }
+    .codeDiv{
+      border: 1px solid rgba(160, 157, 157, 0.733);
+      width: 100%;
+      margin: 0 auto;
+      padding: 2px;
+    }
+  
+    .code{
+        display: flex;
+        width: 100%;
+        height: 20rem;
+        border: 1px solid black;
+        margin: 0 auto;
+        padding: 1rem;
+    }
+  
+  }

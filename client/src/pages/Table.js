@@ -131,7 +131,7 @@ const Table = ({data}) => {
   );
   }catch(err){
       return (<>
-      <h1 id='h11'>Error in JSON File!!</h1>
+      <h1 id='h11'>Unable to Display or Error in JSON File!!</h1>
       {console.log(err)}</>);
   }
 };

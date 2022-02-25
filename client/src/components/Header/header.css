@@ -2,7 +2,7 @@
   display: flex;
   border: 1px solid black;
   width: fit-content;
-  margin-top: 40px;
+  margin-top: 15px;
   padding: 1rem;
   background-color: #f7f5fa;
   border-radius: 10px;
@@ -30,7 +30,7 @@
   }
   .left{
     margin-right: auto;
-  margin-left: 1rem;
+    margin-left: 1rem;
   }
 }
   /* @media screen and (max-width: px) {
@@ -97,3 +97,79 @@
   .button-container .secondary:hover{
       border: 1px solid rgb(58, 58, 58);
   }
+
+
+  @media only screen and (min-width : 321px) and (max-width : 480px) {
+    
+    .header {
+      display: flex;
+      border: 1px solid black;
+      width: 300px;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #f7f5fa;
+      border-radius: 10px;
+    }
+    .left {
+      display: flex;
+      flex-direction: column;
+      /* border: 1px solid palevioletred; */
+      margin-right: auto;
+      margin-left: 1px
+    }
+    .right {
+        overflow: hidden;
+        margin-left: auto;
+        margin-right: 5rem;
+    }
+    .right img {
+      width: 100%;
+      min-height: 100%;
+    }
+    #h1 {
+      margin: 0rem 1rem;
+      margin-bottom: 0rem;
+      width: 30%;
+      font-size: 2.5rem;
+      font-weight: bold;
+      letter-spacing: 0.08rem;
+    }
+
+    #description {
+      width: 15rem;
+      font-size: 1.08rem;
+      margin: 0.5rem 1rem;
+      color: rgb(116, 113, 113);
+    }
+    .right {
+      display: none;
+    }
+    .left{
+      margin-right: auto;
+      margin-left: 1px;
+    }
+
+    .button-container{
+      width: 30rem;
+      padding: 1px;
+      display: flex;
+      /* border: 1px solid black; */
+      margin: 0.5rem 4rem;
+  }
+    .button-container .primary{
+      -webkit-box-align: center;
+      align-items: center;
+      background-color: rgb(32, 33, 36);
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      height: 36px;
+      padding: 0px 24px 0px 16px;
+      transition: all 0.3s ease 0s;
+      white-space: nowrap;
+      width: fit-content;
+      color: white;
+  }
+    
+    }

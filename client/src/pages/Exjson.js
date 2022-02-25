@@ -116,11 +116,11 @@ const Exjson = ({ currentId, currentP }) => {
               title="hello"
             />
             <div className={classes.overlay}>
-              <Typography variant="h6">{currentP.title}</Typography>
-              <div className="icon-pos">
-              <button   onClick={()=>{navigate("/");}}><i class="fa fa-home fa-3x"></i></button>
-
-              </div>
+              <Typography variant="h6">
+              <button onClick={()=>{navigate("/");}}><i class="fa fa-home fa-3x"></i></button>
+                {currentP.title}
+              </Typography>
+              
               <Typography variant="body2"></Typography>
             </div>
             <div className="navBar">
@@ -142,13 +142,14 @@ const Exjson = ({ currentId, currentP }) => {
                 </div>
                 <div className="container2">
                   <div className="left-container2">
+                    
                     <div className={classes.details}>
                       <Typography variant="body2"color="textSecondary"component="h3">
-                        <h1>Data Explorer:</h1>
+                        <div id="dataexplorer"><h1>Data Explorer:</h1></div>
                       </Typography>
                     </div>
                     <Typography className={classes.title} gutterBottom variant="h5" component="h2">
-                      {d.creator}
+                    <div id="creator"> {d.creator} </div>
                     </Typography>
                     <CardContent>
                       <Typography variant="body2" color="textSecondary" component="p" >
