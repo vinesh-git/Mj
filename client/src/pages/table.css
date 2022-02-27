@@ -1,63 +1,36 @@
-  /* width */
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-  
-  /* Track */
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 5px;
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: rgb(70, 70, 70); 
-    border-radius: 10px;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: #3f3f3f; 
-  }
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(70, 70, 70); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f3f; 
+}
+
+.scrolling-wrapper {
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
 
 
+  /* .card {
+    display: inline-block;
+  } */
+}
 
-.Table {
-    font-family: sans-serif;
-    text-align: center;
-
-    background: rgba(216, 216, 216, 0.26);
-    border-radius: 20px;
-    margin-bottom: 3%;
-    margin-left: 3%;
-    margin-right: 3%;
-  }
-  th,
-  td {
-    background: silver;
-    padding: 10px;
-    white-space:pre;
-  }
-
-  p {
-    text-align: left;
-    white-space:pre;
-  }
-
-  .scrolling-wrapper {
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-
-  
-    /* .card {
-      display: inline-block;
-    } */
-  }
-
-  #h11{
-    color: red;
-  }
-
-
-  
+#h11{
+  color: red;
+}

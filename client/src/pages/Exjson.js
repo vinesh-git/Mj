@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Exjson.css";
-import Table from "./Table";
+
 import "./table.css";
+import { JsonToTable } from "react-json-to-table";
 
 import {Card,CardActions,CardContent,CardMedia,Button,Typography} from "@material-ui/core/";
 import useStyles from "./style";
@@ -13,18 +14,11 @@ import { useNavigate } from 'react-router-dom';
 
 const Exjson = ({ currentId, currentP }) => {
 
-  var jf,tableFormat;
+  var jf,jsEncode;
   try{
     const jsfile = currentP.selectedFile;
     const jsreplace = jsfile.replace("data:application/json;base64,", "");
-    var jsEncode = JSON.parse(atob(jsreplace));
-    if(!Array.isArray(jsEncode))
-    {
-      tableFormat = [jsEncode];
-    }
-    else{
-      tableFormat = jsEncode;
-    }
+    jsEncode = JSON.parse(atob(jsreplace));
     jf = JSON.stringify(jsEncode, undefined, 4);
   }catch(e){
       console.log(e);
@@ -167,9 +161,9 @@ const Exjson = ({ currentId, currentP }) => {
                 </div>
               </>
             ))}
-            <div className="Table">
-              <Table data={tableFormat}/>
-            </div>
+             <div className="scrolling-wrapper">
+              <JsonToTable json={jsEncode}/>
+              </div>
             </div>
             <CardActions className={classes.cardActions}>
               {currentP.likeCount}

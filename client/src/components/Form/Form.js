@@ -19,7 +19,17 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 	  setPostData({ creator: '', title: '', code: '', tags: '', description:'', selectedFile: '' });
 	};
   
-	const loadFileAsText = () =>{
+	function  updateList() {
+		var input=document.forms['dform']['jsonfile'];
+
+		var output = document.getElementById('fileList');   
+		for (var i = 0; i < input.files.length; ++i) {
+		  output.innerHTML =input.files.item(i).name  ;
+		}
+		
+	  }
+
+	const loadFileAsText = (e) =>{
 	  var fileToLoad = document.getElementById("helo").files[0];
 	  var fileReader = new FileReader();
 	  fileReader.onload = function(fileLoadedEvent){
@@ -32,6 +42,47 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 	  fileReader.readAsText(fileToLoad, "UTF-8");
   
 	};
+	
+
+	function _(el) {
+		return document.getElementById(el);
+	  }
+	  
+	  function uploadFile(e) {
+		var file = _("helo").files[0];
+		// alert(file.name+" | "+file.size+" | "+file.type);
+		var formdata = new FormData();
+		formdata.append("jsonfile", file);
+		var ajax = new XMLHttpRequest();
+		ajax.upload.addEventListener("progress", progressHandler, false);
+		ajax.addEventListener("load", completeHandler, false);
+		ajax.addEventListener("error", errorHandler, false);
+		ajax.addEventListener("abort", abortHandler, false);
+		ajax.open("POST", "file_upload_parser.php"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
+		//use file_upload_parser.php from above url
+		ajax.send(formdata);
+	  }
+	  
+	  function progressHandler(event) {
+		_("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
+		var percent = (event.loaded / event.total) * 100;
+		_("progressBar").value = Math.round(percent);
+		_("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
+	  }
+	  
+	  function completeHandler(event) {
+		_("status").innerHTML =  "File uploaded Succesfully ";
+		 
+		  //wil clear progress bar after successful upload
+	  }
+	  
+	  function errorHandler(event) {
+		_("status").innerHTML = "Upload Failed";
+	  }
+	  
+	  function abortHandler(event) {
+		_("status").innerHTML = "Upload Aborted";
+	  }
   
 	const handleSubmit = async (e) => {
 	  e.preventDefault();
@@ -67,41 +118,54 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
   return (
 	<div>
 		<body>
-			<div class="container-contact100">
-				<div class="wrap-contact100">
-					<form name="dform" class="contact100-form validate-form"  onSubmit={handleSubmit}>
-						<span class="contact100-form-title">
+			<div className="container-contact100">
+				<div className="wrap-contact100">
+					<form name="dform" className="contact100-form validate-form"  onSubmit={handleSubmit}>
+						<span className="contact100-form-title">
 							Input Your DataSets
 						</span>
 
-						<div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
-							<span class="label-input100">Creator Name *</span>
-							<input class="input100" type="text" name="name" placeholder="Enter Creator Name" value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} required/>
+						<div className="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
+							<span className="label-input100">Creator Name *</span>
+							<input className="input100" type="text" name="name" placeholder="Enter Creator Name" value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} required/>
 						</div>
 
-						<div class="wrap-input100 validate-input bg1 rs1-wrap-input100" >
-							<span class="label-input100">Title of DataSet *</span>
-							<input class="input100" type="text" name="email" placeholder="Enter the Title "  value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} required/>
+						<div className="wrap-input100 validate-input bg1 rs1-wrap-input100" >
+							<span className="label-input100">Title of DataSet *</span>
+							<input className="input100" type="text" name="email" placeholder="Enter the Title "  value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} required/>
 						</div>
 
-						<div class="wrap-input100 bg1 rs1-wrap-input100">
-							<span class="label-input100">Tag</span>
-							<input class="input100" type="text" name="phone" placeholder="Enter the tags(comma Separated)" value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}/>
+						<div className="wrap-input100 bg1 rs1-wrap-input100">
+							<span className="label-input100">Tag</span>
+							<input className="input100" type="text" name="phone" placeholder="Enter the tags(comma Separated)" value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}/>
 						</div>
 						
-						<div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
-							<span class="label-input100">Code</span>
-							<textarea class="input100" name="message" placeholder="Start typing Code here..." value={postData.code} onChange={(e) => setPostData({ ...postData, code: e.target.value })}></textarea>
+						<div className="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
+							<span className="label-input100">Code</span>
+							<textarea className="input100" name="message" placeholder="Start typing Code here..." value={postData.code} onChange={(e) => setPostData({ ...postData, code: e.target.value })}></textarea>
 						</div>
 
-						<div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
-							<span class="label-input100">Description</span>
-							<textarea class="input100" name="message" placeholder="Describe the dataset.." value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })} ></textarea>
+						<div className="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
+							<span className="label-input100">Description</span>
+							<textarea className="input100" name="message" placeholder="Describe the dataset.." value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })} ></textarea>
 						</div>
-						<input type="file" id="helo" name="jsonfile" align="center" onChange={loadFileAsText} required/>
+						<div className="upload">
+							<button type='button' className='btn-warning'  >
+								<i className='fa fa-upload'>Choose the Dataset</i>
+
+								<input type="file" id="helo" name="jsonfile" align="center"   onChange={e => { loadFileAsText(e); updateList();uploadFile() }} required/>
+								
+							</button>
+							<h5 id='fileList'></h5>
+							<progress id="progressBar" value="0" max="100"   style={{width:"300px"}}></progress>
+								<h3 id="status"></h3>
+								<p id="loaded_n_total"></p>
+							
+						</div>
 						
-						<div class="container-contact100-form-btn">
-							<button class="contact100-form-btn">
+						
+						<div className="container-contact100-form-btn">
+							<button className="contact100-form-btn">
 								<span>
 									Submit
 								</span>
