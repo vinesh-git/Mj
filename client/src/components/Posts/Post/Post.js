@@ -36,7 +36,7 @@ const Post = ({ post, setCurrentId, setCurrentP }) => {
             title={post.title}
           />
           <div className={classes.overlay}>
-            <Typography variant="h6">{post.creator}</Typography>
+            <Typography variant="h6">{post.title}</Typography>
             <Typography variant="body2">
               {moment(post.createdAt).fromNow()}
             </Typography>
@@ -61,10 +61,11 @@ const Post = ({ post, setCurrentId, setCurrentP }) => {
           <Typography
             className={classes.title}
             gutterBottom
-            variant="h5"
-            component="h2"
+            variant="h6"
+            component="h6"
+            overflow="hidden"
           >
-            {post.title}
+            {post.creator}
           </Typography>
           {/* <CardContent>
             <Typography variant="body2" color="textSecondary" component="p">

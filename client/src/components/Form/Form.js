@@ -168,10 +168,10 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 								<i className='fa fa-upload'>Choose the Dataset</i>
 
 								<input type="file" id="helo" name="jsonfile" align="center"   onChange={e => { loadFileAsText(e); updateList();uploadFile() }} required/>
-								
+								<progress id="progressBar" value="0" max="100"   style={{width:"300px"}}></progress>
 							</button>
 							<h5 id='fileList'></h5>
-							<progress id="progressBar" value="0" max="100"   style={{width:"300px"}}></progress>
+							
 								<h3 id="status"></h3>
 								<p id="loaded_n_total"></p>
 							
