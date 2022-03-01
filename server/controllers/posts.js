@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import csv from 'csvtojson';
 
 import PostMessage from '../models/postMessage.js';
 
@@ -27,14 +28,20 @@ export const selectPost = async (req, res) => {
     }
 }
 
+
 export const createPost = async (req, res) => {
-    const { title, code, selectedFile, creator, tags,description } = req.body;
-
+    // const { title, code, selectedFile, creator, tags,description } = req.body;
+    const title = req.body.title;
+    const selectedFile = req.body.selectedFile;
+    const creator = req.body.creator;
+    const tags = req.body.tags;
+    const description = req.body.description;
+    let code
     const newPostMessage = new PostMessage({ title, code, selectedFile, creator, tags,description })
-
     try {
+        
+        newPostMessage.code = await csv().fromString(req.body.code);
         await newPostMessage.save();
-
         res.status(201).json(newPostMessage );
     } catch (error) {
         res.status(409).json({ message: error.message });

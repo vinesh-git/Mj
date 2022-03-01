@@ -8,6 +8,7 @@ import useStyles from './styles';
 import Header from "./components/Header/Header";
 import { Link } from "react-router-dom";
 import Exjson from './pages/Exjson';
+import Brand from './components/Brand/Brand';
 
 
 const Temp = ({currentId,currentP,setCurrentId,setCurrentP}) => {
@@ -22,6 +23,7 @@ const Temp = ({currentId,currentP,setCurrentId,setCurrentP}) => {
     <>
     <div>
     <Container maxWidth="lg">
+      <Brand/>
       <Header />
       <Grow in>
         <Container style={{ margin:"1rem"}}>

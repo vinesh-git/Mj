@@ -29,6 +29,18 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 		
 	  }
 
+	  const loadFileAsTextCsv = (e) =>{
+		var fileToLoad = document.getElementById("helocsv").files[0];
+		var fileReader = new FileReader();
+		fileReader.onload = function(fileLoadedEvent){
+			var textFromFileLoaded = fileLoadedEvent.target.result;
+			setPostData({ ...postData, code: textFromFileLoaded })
+		};
+		
+		fileReader.readAsText(fileToLoad, "UTF-8");
+	
+	  };
+
 	const loadFileAsText = (e) =>{
 	  var fileToLoad = document.getElementById("helo").files[0];
 	  var fileReader = new FileReader();
@@ -140,10 +152,12 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 							<input className="input100" type="text" name="phone" placeholder="Enter the tags(comma Separated)" value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })}/>
 						</div>
 						
-						<div className="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
+						{/* <div className="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
 							<span className="label-input100">Code</span>
 							<textarea className="input100" name="message" placeholder="Start typing Code here..." value={postData.code} onChange={(e) => setPostData({ ...postData, code: e.target.value })}></textarea>
-						</div>
+						</div> */}
+
+						<input type="file" id="helocsv" name="csvfile" align="center"   onChange={e => { loadFileAsTextCsv(e); }} required/>
 
 						<div className="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
 							<span className="label-input100">Description</span>

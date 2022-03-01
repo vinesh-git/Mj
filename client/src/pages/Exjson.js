@@ -10,16 +10,19 @@ import useStyles from "./style";
 import pattern from "../images/a7.jpg";
 import Plist from "./PageLists/Plist";
 import { useNavigate } from 'react-router-dom';
+import Brand from "../components/Brand/Brand";
 
 
 const Exjson = ({ currentId, currentP }) => {
 
-  var jf,jsEncode;
+  var jf,jsEncode,csvjf;
   try{
     const jsfile = currentP.selectedFile;
     const jsreplace = jsfile.replace("data:application/json;base64,", "");
     jsEncode = JSON.parse(atob(jsreplace));
+    // jsEncode = JSON.parse(jsfile);
     jf = JSON.stringify(jsEncode, undefined, 4);
+    csvjf = JSON.stringify(currentP.code, undefined, 4);
   }catch(e){
       console.log(e);
   }
@@ -38,7 +41,8 @@ const Exjson = ({ currentId, currentP }) => {
       content: currentP.description,
       creator: currentP.creator,
       code: "",
-      jff: jf
+      jff: jf,
+      tabelfm: jsEncode
     }
   ];
   const codePart = [
@@ -48,7 +52,8 @@ const Exjson = ({ currentId, currentP }) => {
       content: currentP.description,
       creator: currentP.creator,
       code: "",
-      jff: currentP.code
+      jff: csvjf,
+      tabelfm: currentP.code
     }
   ];
 
@@ -103,6 +108,7 @@ const Exjson = ({ currentId, currentP }) => {
     return (
       <>
         <div className="main-container">
+          <Brand/>
           <Card className={classes.card} id="displayCard">
             <CardMedia
               className={classes.media}
@@ -159,11 +165,12 @@ const Exjson = ({ currentId, currentP }) => {
                     </div>
                   </div>
                 </div>
+                <div className="scrolling-wrapper">
+                {<JsonToTable json={d.tabelfm}/>}
+              </div>
               </>
             ))}
-             <div className="scrolling-wrapper">
-              <JsonToTable json={jsEncode}/>
-              </div>
+             
             </div>
             <CardActions className={classes.cardActions}>
               {currentP.likeCount}
