@@ -35,7 +35,6 @@ export const selectPost = async (req, res) => {
 
 export const createPost = async (req, res) => {
     // const { title, code, selectedFile, creator, tags,description } = req.body;
-    console.log("call 2");
     const title = req.body.title;
     const selectedFile = req.body.selectedFile;
     const creator = req.body.creator;
@@ -43,7 +42,6 @@ export const createPost = async (req, res) => {
     const description = req.body.description;
     let code;
     var flag = false;
-    console.log(req.body.code);
     if(req.body.code == "EMPTY" ){
         flag = true;
         code =  excelToJson({
@@ -106,7 +104,6 @@ export const likePost = async (req, res) => {
 
 export const singleFileUpload = async (req, res, next) => {
     try{
-        console.log("call 1");
         res.status(201).send('File Uploaded Successfully')
     }catch(error){
         res.status(400).send(error.message);

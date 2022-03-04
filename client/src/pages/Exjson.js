@@ -71,13 +71,24 @@ const Exjson = ({ currentId, currentP }) => {
     currentId ? state.posts.find((message) => message._id === currentId) : null
   );
 
-  const downloadTxtFile = () => {
+  const downloadTxtFile = (e) => {
     const element = document.createElement("a");
     const file = new Blob([jf], {
       type: "JSON/plain",
     });
     element.href = URL.createObjectURL(file);
     element.download = "myFile.JSON";
+    document.body.appendChild(element);
+    element.click();
+  };
+
+  const downloadTxtFilecsv = () => {
+    const element = document.createElement("a");
+    const file = new Blob([csvjf], {
+      type: "JSON/plain",
+    });
+    element.href = URL.createObjectURL(file);
+    element.download = "DownloadFile.JSON";
     document.body.appendChild(element);
     element.click();
   };
@@ -139,7 +150,7 @@ const Exjson = ({ currentId, currentP }) => {
                     setSelected={setSelected}
                   />
                 ))}
-                <button id="downloadButton" onClick={downloadTxtFile}>
+                <button id="downloadButton" onClick={selected==='data'?downloadTxtFile:downloadTxtFilecsv}>
                   <i class="fa fa-download fa-lg"> JSON</i>
                 </button>
               </ul>
