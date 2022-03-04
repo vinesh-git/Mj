@@ -9,7 +9,6 @@ function Popup(props) {
       <div className="popup-inner">
         <button
           type="button"
-          className="close"
           aria-label="Close"
           className="close-btn"
           onClick={() => props.setTrigger(false)}
