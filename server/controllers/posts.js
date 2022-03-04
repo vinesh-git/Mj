@@ -42,6 +42,11 @@ export const createPost = async (req, res) => {
     const description = req.body.description;
     let code;
     var flag = false;
+    if(req.body.code == "")
+    {
+        flag = true;
+        code = "No Input provided";
+    }
     if(req.body.code == "EMPTY" ){
         flag = true;
         code =  excelToJson({

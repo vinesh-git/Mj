@@ -8,7 +8,7 @@ import "./css/formutil.css";
 
 const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
-	const [postData, setPostData] = useState({ creator: '', title: '', message: '', tags: '', description: '', selectedFile: '' });
+	const [postData, setPostData] = useState({ creator: '', title: '', code: '', tags: '', description: '', selectedFile: ''});
 	const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
 	const dispatch = useDispatch();
 
@@ -18,7 +18,7 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
 	const clear = () => {
 		setCurrentId(0);
-		setPostData({ creator: '', title: '', code: {}, tags: '', description: '', selectedFile: '' });
+		setPostData({ creator: '', title: '', code: '', tags: '', description: '', selectedFile: '' });
 	};
 
 
