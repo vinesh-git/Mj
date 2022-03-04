@@ -14,7 +14,7 @@
     position: relative;
     padding: 32px;
     border-radius: 20px;
-    width: 120%;
+    width: 80%;
     height:auto ;
     max-width: 640px;
     background-color: #fff;
@@ -37,7 +37,7 @@
     background-color: rgba(0, 0, 0, 0.287);
 }
 
-
+/* 
 @media only screen and (min-width : 321px) and (max-width : 480px) {
 
     .popup{
@@ -45,7 +45,7 @@
         top: 0;
         left: 35px;
         width: 80%;
-        height: 150vh;
+        height: 80%;
         background-color: rgba(0, 0, 0, 0.178);
         display: flex;
         justify-content: center;
@@ -79,4 +79,4 @@
         background-color: rgba(0, 0, 0, 0.287);
     }
     
-    }
+    } */
