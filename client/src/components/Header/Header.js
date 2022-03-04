@@ -16,10 +16,10 @@ const Header = () => {
           <div id="h1">Datasets</div>
           <div id="description">
             Explore, analyze, and share quality data.{" "}
-            <a href="https://www.kaggle.com/datasets" rel="">
+            <a href="https://ihub-data.iiit.ac.in/" rel="">
               Learn more
             </a>{" "}
-            about data types, creating, and collaborating.
+            about inai dataset collections, creations, and collaborations.
           </div>
           <div className="button-container">
             <button className="button primary" onClick={() => setButtonPopup(true)}>

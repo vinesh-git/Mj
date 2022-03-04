@@ -17,6 +17,8 @@ import { Link } from "react-router-dom";
 import Exjson from "./pages/Exjson";
 import Brand from "./components/Brand/Brand";
 
+
+
 const Temp = ({ currentId, currentP, setCurrentId, setCurrentP }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -25,13 +27,19 @@ const Temp = ({ currentId, currentP, setCurrentId, setCurrentP }) => {
     dispatch(getPosts());
   }, [currentId, currentP, dispatch]);
 
+  const [progress, setProgress] = useState(0);  
+  const setpercent =(p) =>
+  {
+      setProgress(p);
+  }
   return (
     <>
       <div className="maincontainer">
         <Container maxWidth="lg">
+        
           <center>
             <Brand />
-            <Header />
+            <Header setpercent={setpercent}/>
           </center>
 
           <Grow in>
