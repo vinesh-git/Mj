@@ -4,20 +4,13 @@ import "./popup.css";
 
 function Popup(props) {
   return props.trigger ? (
-    
     <div className="popup">
       <div className="popup-inner">
-        <button
-          type="button"
-          aria-label="Close"
-          className="close-btn"
-          onClick={() => props.setTrigger(false)}
-        >
+        <button type="button" aria-label="Close" className="close-btn" onClick={() => props.setTrigger(false)}>
           <span aria-hidden="true">&times;</span>
         </button>
-        
-        {props.children}
-      </div>
+          {props.children}
+        </div>
     </div>
   ) : (
     ""

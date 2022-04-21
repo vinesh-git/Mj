@@ -6,9 +6,9 @@ import path from 'path';
 import {fileURLToPath} from 'url';
 
 import postRoutes from './routes/posts.js';
+import userRoutes from './routes/users.js';
 
 const app = express();
-
 
 app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
@@ -17,14 +17,13 @@ app.use(cros());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-
-
-
 app.use('/posts',postRoutes);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/user', userRoutes);
 
 
-const CONNECTION_URL = 'mongodb+srv://vivek:vivek123@cluster0.mydlu.mongodb.net/mernstack?retryWrites=true&w=majority';
+// const CONNECTION_URL = 'mongodb+srv://vivek:vivek123@cluster0.mydlu.mongodb.net/mernstack?retryWrites=true&w=majority';
+const CONNECTION_URL = 'mongodb://localhost/LocData1';
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(CONNECTION_URL, {

@@ -32,14 +32,8 @@ export const selectPost = async (req, res) => {
     }
 }
 
-
 export const createPost = async (req, res) => {
-    // const { title, code, selectedFile, creator, tags,description } = req.body;
-    const title = req.body.title;
-    const selectedFile = req.body.selectedFile;
-    const creator = req.body.creator;
-    const tags = req.body.tags;
-    const description = req.body.description;
+    const post = req.body;
     let code;
     var flag = false;
     if(req.body.code == "")
@@ -47,7 +41,7 @@ export const createPost = async (req, res) => {
         flag = true;
         code = "No Input provided";
     }
-    if(req.body.code == "EMPTY" ){
+    else if(req.body.code == "EMPTY" ){
         flag = true;
         code =  excelToJson({
             source: readFileSync('../server/uploads/sample.xls') // fs.readFileSync return a Buffer
@@ -59,7 +53,8 @@ export const createPost = async (req, res) => {
            }
     }
     
-    const newPostMessage = new PostMessage({ title, code, selectedFile, creator, tags,description })
+    const newPostMessage = new PostMessage({...post, code:code, creator: req.userId, createdAt: new Date().toISOString()})
+    // const newPostMessage = new PostMessage({ title, code, selectedFile, creator, tags,description })
     
     try {
         if(!flag){
@@ -72,7 +67,47 @@ export const createPost = async (req, res) => {
     }
 }
 
+// export const createPost = async (req, res) => {
+//     // const { title, code, selectedFile, creator, tags,description } = req.body;
+//     const title = req.body.title;
+//     const selectedFile = req.body.selectedFile;
+//     const creator = req.userId;
+//     const tags = req.body.tags;
+//     const description = req.body.description;
+//     let code;
+//     var flag = false;
+//     if(req.body.code == "")
+//     {
+//         flag = true;
+//         code = "No Input provided";
+//     }
+//     else if(req.body.code == "EMPTY" ){
+//         flag = true;
+//         code =  excelToJson({
+//             source: readFileSync('../server/uploads/sample.xls') // fs.readFileSync return a Buffer
+//         });
+//         try{
+//             unlinkSync('../server/uploads/sample.xls');
+//            }catch(err){
+//             console.log(err);
+//            }
+//     }
+    
+//     const newPostMessage = new PostMessage({ title, code, selectedFile, creator, tags,description })
+    
+//     try {
+//         if(!flag){
+//             newPostMessage.code = await csv().fromString(req.body.code);
+//         }
+//         await newPostMessage.save();
+//         res.status(201).json(newPostMessage );
+//     } catch (error) {
+//         res.status(409).json({ message: error.message });
+//     }
+// }
+
 export const updatePost = async (req, res) => {
+    
     const { id } = req.params;
     const { title, code, creator, selectedFile, tags, description } = req.body;
     
@@ -96,16 +131,42 @@ export const deletePost = async (req, res) => {
 }
 
 export const likePost = async (req, res) => {
+    
     const { id } = req.params;
+    
+    if(!req.userId) return res.json({message: 'not Authenticated'})
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
     
     const post = await PostMessage.findById(id);
 
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+    console.log(id)
+    const index = post.likes.includes(String(req.userId));
+    // const index = post.likes.findById( (id) => id === String(req.userId) );
+
+    if(index === false){
+        //like the post
+        post.likes.push(req.userId);
+    }else{
+        post.likes = post.likes.filter( (id) => id !== String(req.userId));
+    }
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
     
     res.json(updatedPost);
 }
+
+// export const likePost = async (req, res) => {
+//     const { id } = req.params;
+
+//     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    
+//     const post = await PostMessage.findById(id);
+
+//     const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
+    
+//     res.json(updatedPost);
+// }
 
 export const singleFileUpload = async (req, res, next) => {
     try{

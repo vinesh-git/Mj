@@ -26,12 +26,8 @@ const Temp = ({ currentId, currentP, setCurrentId, setCurrentP }) => {
   useEffect(() => {
     dispatch(getPosts());
   }, [currentId, currentP, dispatch]);
+  
 
-  const [progress, setProgress] = useState(0);  
-  const setpercent =(p) =>
-  {
-      setProgress(p);
-  }
   return (
     <>
       <div className="maincontainer">
@@ -39,22 +35,13 @@ const Temp = ({ currentId, currentP, setCurrentId, setCurrentP }) => {
         
           <center>
             <Brand />
-            <Header setpercent={setpercent}/>
           </center>
-
+          
           <Grow in>
             <Container style={{ margin: "1rem" }}>
-              <div
-                container
-                justify="space-between"
-                alignItems="stretch"
-                spacing={3}
-              >
+              <div container justify="space-between" alignItems="stretch" spacing={3}>
                 <div item xs={5} sm={7}>
-                  <Posts
-                    setCurrentId={setCurrentId}
-                    setCurrentP={setCurrentP}
-                  />
+                  <Posts setCurrentId={setCurrentId} setCurrentP={setCurrentP} />
                 </div>
               </div>
             </Container>

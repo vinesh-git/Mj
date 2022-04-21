@@ -43,7 +43,7 @@ const Exjson = ({ currentId, currentP }) => {
       id: 1,
       title: "Data",
       content: currentP.description,
-      creator: currentP.creator,
+      name: currentP.name,
       code: "",
       jff: jf,
       tabelfm: jsEncode,
@@ -54,7 +54,7 @@ const Exjson = ({ currentId, currentP }) => {
       id: 1,
       title: "Data",
       content: currentP.description,
-      creator: currentP.creator,
+      name: currentP.name,
       code: "",
       jff: csvjf,
       tabelfm: currentP.code,
@@ -122,17 +122,9 @@ const Exjson = ({ currentId, currentP }) => {
         <div className="main-container">
           <Brand />
           <Card className={classes.card} id="displayCard">
-            <CardMedia
-              className={classes.media}
-              image={pattern}
-              title="hello"
-            />
+            <CardMedia className={classes.media} image={pattern} title="hello"/>
             <div className={classes.overlay}>
-              <button
-                onClick={() => {
-                  navigate("/");
-                }}
-              >
+              <button onClick={() => { navigate("/");}}>
                 <img src={home} alt="" style={{ width: "30px" }} />
               </button>
               <div className="h6fontchanger">
@@ -143,12 +135,7 @@ const Exjson = ({ currentId, currentP }) => {
             <div className="navBar">
               <ul>
                 {list1.map((item) => (
-                  <Plist
-                    titlee={item.titlee}
-                    active={selected === item.id}
-                    id={item.id}
-                    setSelected={setSelected}
-                  />
+                  <Plist titlee={item.titlee} active={selected === item.id} id={item.id} setSelected={setSelected}/>
                 ))}
                 <button id="downloadButton" onClick={selected==='data'?downloadTxtFile:downloadTxtFilecsv}>
                   <i class="fa fa-download fa-lg"> JSON</i>
@@ -165,30 +152,17 @@ const Exjson = ({ currentId, currentP }) => {
                   <div className="container2">
                     <div className="left-container2">
                       <div className={classes.details}>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="h1"
-                        >
+                        <Typography variant="body2" color="textSecondary" component="h1">
                           <div id="dataexplorer">
                             <h1>Data Explorer:</h1>
                           </div>
                         </Typography>
                       </div>
-                      <Typography
-                        className={classes.title}
-                        gutterBottom
-                        variant="h5"
-                        component="h2"
-                      >
-                        <div id="creator"> {d.creator} </div>
+                      <Typography className={classes.title} gutterBottom variant="h5" component="h2">
+                        <div id="creator"> {d.name} </div>
                       </Typography>
                       <CardContent>
-                        <Typography
-                          variant="body2"
-                          color="textSecondary"
-                          component="p"
-                        >
+                        <Typography variant="body2" color="textSecondary" component="p">
                           {d.code}
                         </Typography>
                       </CardContent>
@@ -196,12 +170,7 @@ const Exjson = ({ currentId, currentP }) => {
                     <div className="codeDiv">
                       <div className="code">
                         <code id="output">
-                          <textarea
-                            rows="60"
-                            cols="80"
-                            id="textbox"
-                            value={d.jff}
-                          ></textarea>
+                          <textarea rows="60" cols="80" id="textbox" value={d.jff}></textarea>
                         </code>
                       </div>
                     </div>

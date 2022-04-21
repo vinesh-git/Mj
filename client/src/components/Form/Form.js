@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createPost, updatePost } from '../../actions/posts';
 import { singleFileUpload } from '../../api/index';
+import { Paper, Typography } from '@material-ui/core';
 
 import "./css/formmain.css";
 import "./css/formutil.css";
 
 const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
-	const [postData, setPostData] = useState({ creator: '', title: '', code: '', tags: '', description: '', selectedFile: ''});
+	// const [postData, setPostData] = useState({ creator: '', title: '', code: '', tags: '', description: '', selectedFile: ''});
+	const [postData, setPostData] = useState({title: '', code: '', tags: '', description: '', selectedFile: ''});
 	const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
 	const dispatch = useDispatch();
+	const user = JSON.parse(localStorage.getItem('profile'));
+	
 
 	useEffect(() => {
 		if (post) setPostData(post);
@@ -18,7 +22,8 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
 	const clear = () => {
 		setCurrentId(0);
-		setPostData({ creator: '', title: '', code: '', tags: '', description: '', selectedFile: '' });
+		// setPostData({ creator: '', title: '', code: '', tags: '', description: '', selectedFile: '' });
+		setPostData({title: '', code: '', tags: '', description: '', selectedFile: '' });
 	};
 
 
@@ -215,17 +220,30 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 			}
 			else {
 				if (currentId === 0) {
-					dispatch(createPost(postData));
+					dispatch(createPost({ ...postData, name: user?.result?.name}));
 					setTrigger(false);
 					clear();
 				} else {
-					dispatch(updatePost(currentId, postData));
+					dispatch(updatePost(currentId, { ...postData, name: user?.result?.name}));
 					setTrigger(false);
 					clear();
 				}
 			}
 		}
+		
 	};
+
+	if(!user?.result?.name)
+	{
+		return(
+			<Paper>
+				<Typography variant="h6" align="center">
+					Please Sign In !!!
+				</Typography>
+			</Paper>
+		)
+	}
+
 	return (
 		<div>
 			<body>
@@ -236,10 +254,10 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 								Input Your DataSets
 							</span>
 
-							<div className="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
+							{/* <div className="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
 								<span className="label-input100">Creator Name *</span>
 								<input className="input100" type="text" name="name" placeholder="Enter Creator Name" value={postData.creator} onChange={(e) => setPostData({ ...postData, creator: e.target.value })} required />
-							</div>
+							</div> */}
 
 							<div className="wrap-input100 validate-input bg1 rs1-wrap-input100" >
 								<span className="label-input100">Title of DataSet *</span>
@@ -255,6 +273,7 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 							<span className="label-input100">Code</span>
 							<textarea className="input100" name="message" placeholder="Start typing Code here..." value={postData.code} onChange={(e) => setPostData({ ...postData, code: e.target.value })}></textarea>
 						</div> */}
+						
 							<div className="upload">
 								<button type='button' className='btn-warning'  >
 									<i className='fa fa-upload'>Choose excel or csv files</i>

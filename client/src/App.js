@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Temp from "./Temp";
 import { useDispatch } from 'react-redux';
 import { getPosts } from './actions/posts';
+import Auth from './components/Auth/Auth';
 
 
 const App = () => {
@@ -19,6 +20,7 @@ const App = () => {
    <Router>
      <Routes>
        <Route exact path="/"  element={<Temp currentId={currentId} setCurrentId={setCurrentId} currentP={currentP} setCurrentP={setCurrentP}/>} />
+       <Route exact path='/auth' element={<Auth />}/>
        <Route exact path="/user" element={<Exjson currentId={currentId} currentP={currentP} />}/>
      </Routes>
    </Router>

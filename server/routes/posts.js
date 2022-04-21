@@ -4,16 +4,17 @@ import { getPosts, selectPost, createPost, updatePost, likePost, deletePost, sin
 
 import {upload} from '../helpers/filehelper.js';
 
+import auth from '../middleware/auth.js';
+
 const router = express.Router();
 
 router.post('/singleFile', upload.single('file'), singleFileUpload);
 
 router.get('/', getPosts);
-router.post('/', createPost);
-router.get('/:id', selectPost);
-router.patch('/:id', updatePost);
-router.delete('/:id', deletePost);
-router.patch('/:id/likePost', likePost);
+router.post('/', auth, createPost);
+router.patch('/:id', auth, updatePost);
+router.delete('/:id', auth, deletePost);
+router.patch('/:id/likePost', auth, likePost);
 
 
 
