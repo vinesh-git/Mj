@@ -4,7 +4,6 @@ import "./Exjson.css";
 
 import "./table.css";
 import { JsonToTable } from "react-json-to-table";
-
 import {
   Card,
   CardActions,
@@ -19,6 +18,8 @@ import Plist from "./PageLists/Plist";
 import { useNavigate } from "react-router-dom";
 import Brand from "../components/Brand/Brand";
 import home from "../images/home-button.png";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Exjson = ({ currentId, currentP }) => {
   var jf, jsEncode, csvjf;
@@ -121,42 +122,44 @@ const Exjson = ({ currentId, currentP }) => {
       <>
         <div className="main-container">
           <Brand />
-          <Card className={classes.card} id="displayCard">
-            <CardMedia className={classes.media} image={pattern} title="hello"/>
+          <Card className={classes.card} id="displayCard" style={{ padding:'0px'}}>
+            <CardMedia className={classes.media} image={pattern} title="hello" />
             <div className={classes.overlay}>
-              <button onClick={() => { navigate("/");}}>
-                <img src={home} alt="" style={{ width: "30px" }} />
-              </button>
               <div className="h6fontchanger">
               <Typography variant="h6">{currentP.title}</Typography>
               </div>
               <Typography variant="body2"></Typography>
             </div>
-            <div className="navBar">
-              <ul>
-                {list1.map((item) => (
+            <div className="row">
+                {/* {list1.map((item) => (
                   <Plist titlee={item.titlee} active={selected === item.id} id={item.id} setSelected={setSelected}/>
-                ))}
-                <button id="downloadButton" onClick={selected==='data'?downloadTxtFile:downloadTxtFilecsv}>
-                  <i class="fa fa-download fa-lg"> JSON</i>
-                </button>
-              </ul>
+                ))} */}
+                {/* <button id="downloadButton" onClick={selected==='data'?downloadTxtFile:downloadTxtFilecsv}>
+                   JSON
+                </button> */}
+                {/* <button onClick={() => { navigate("/");}}>
+                <img src={home} alt="" style={{ width: "30px" }} />
+                </button> */}
+              <div className="col">
+               <Button style={{backgroundColor:"white",margin:"10px",width:"auto",border:"2px solid #ff793fce"}} variant='contained' onClick={selected==='data'?downloadTxtFile:downloadTxtFilecsv} >DOWNLOAD</Button>
+              </div>
+              <div className="col d-flex justify-content-end">
+                <Button style={{backgroundColor:"#ff793fce",margin:"10px",width:"auto"}} variant='contained' onClick={() => { navigate("/");}} >HOME</Button>
+              </div>
             </div>
             <div className="tab">
               {data.map((d) => (
                 <>
-                  <div className="container">
-                    <div className="description">Description</div>
-                    <div className="DescriptionContainer">{d.content}</div>
+                  <div className="container1">
+                    <div className="description row" >Description</div>
+                    <div className="DescriptionContainer row">{d.content}</div>
                   </div>
-                  <div className="container2">
-                    <div className="left-container2">
+                  <div className="container2 row" style={{margin:"0rem 2rem"}}>
+                    <div className="left-container2 col">
                       <div className={classes.details}>
-                        <Typography variant="body2" color="textSecondary" component="h1">
                           <div id="dataexplorer">
-                            <h1>Data Explorer:</h1>
+                            Data Explorer:
                           </div>
-                        </Typography>
                       </div>
                       <Typography className={classes.title} gutterBottom variant="h5" component="h2">
                         <div id="creator"> {d.name} </div>
@@ -167,13 +170,16 @@ const Exjson = ({ currentId, currentP }) => {
                         </Typography>
                       </CardContent>
                     </div>
-                    <div className="codeDiv">
+                    <div className="codeDiv col">
                       <div className="code">
                         <code id="output">
                           <textarea rows="60" cols="80" id="textbox" value={d.jff}></textarea>
                         </code>
                       </div>
                     </div>
+                  </div>
+                  <div className="container1" style={{marginTop:"5rem"}}>
+                    <div className="description row" >DETAILS</div>
                   </div>
                   <div className="scrolling-wrapper">
                     {<JsonToTable json={d.tabelfm} />}

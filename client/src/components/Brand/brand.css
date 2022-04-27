@@ -7,16 +7,15 @@
     display: flex;
 }
 img{
-    width: 90px;
+    width: 80px;
     max-width: 200px;
     height: auto;
     padding: 0;
 }
-.brand-name{
+.brand-name{    
     margin-top: auto;
-    margin-left: 2%;
+    font-size: 25px;
     margin-bottom: auto;
-
 }
 @media (max-width: 758px)
 {
@@ -25,7 +24,7 @@ img{
         display: grid;
         border-color: 5px solid #333;
     }
-    .brand-name{
+    .brand-name{    
         margin-top: 0%;
         padding: 0;
     }

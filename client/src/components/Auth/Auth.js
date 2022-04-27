@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import Input from './Input';
 import { signin, signup } from '../../actions/auth';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 const initalState = {firstName: "" , lastName:"", email:"", password:"", confirmPassword:""}
 
 const Auth = () => {
@@ -78,20 +80,25 @@ const Auth = () => {
                 <Grid Container spacing={2}>
                     {
                         isSignup && (
-                            <>
-                                <Input name="firstName" label="First Name" handleChange={handleChange} autoFocus half />
-                                <Input name="lastName" label="Last Name" handleChange={handleChange} autoFocus half />
-                            </>
+                            <div>
+                                <Input name="firstName"  label="First Name" handleChange={handleChange} autoFocus  />
+                                <Input name="lastName"  label="Last Name" handleChange={handleChange} autoFocus  />
+                            </div>
                         )
                     }
                     <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
                     <Input name="password" label="Password" handleChange={handleChange} type={ShowPassword ? "text" : "password"} handleShowPassword={handleShowPassword}/>
                     { isSignup && <Input name="confirmPassword" label="Repeat Password" handleChange={handleChange} type="password" />}
                 </Grid>
+                
+                <Button type="submit" fullWidth className={classes.signinButton} variant="contained" style={{background:"#ff793fce"}}>
+                    { isSignup ? 'Sign Up' : 'Sign In'}
+                </Button>
+                <div clas></div>
                 <GoogleLogin
                     clientId='532261741975-e5hsdrt26j7mo4j0kj2it22dt31esbfg.apps.googleusercontent.com'
                     render={(renderProps) => (
-                        <Button className={classes.googleButton} color='primary' fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant='contained'>
+                        <Button className={classes.googleButton} style={{background:"#ff793fce"}} fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled}  variant='contained'>
                             Google  Login
                         </Button>
                     )}
@@ -99,13 +106,11 @@ const Auth = () => {
                     onFailure={googleFailure}
                     cookiePolicy="single_host_origin"
                 />
-                <Button type="submit" fullWidth  variant="contained" color="primary">
-                    { isSignup ? 'Sign Up' : 'Sign In'}
-                </Button>
+                
                 <Grid container justifyContent="flex-end">
                     <Grid item>
-                         <Button fullWidth onClick={switchMode}>
-                             { isSignup ? 'Already have an account? Sign In': 'Create an account'}
+                         <Button  onClick={switchMode} style={{ backgroundColor:"#F5F5F5", padding:1, border:'1px solid #E8E8E8'}}>
+                             { isSignup ? 'Sign In': 'Create an account'}
                          </Button>
                     </Grid>
                 </Grid>

@@ -22,7 +22,8 @@ export default makeStyles({
     height: '60%',
     position: 'relative',
     margin:'0 auto',
-    marginTop:'1%'
+    marginTop:'1%',
+    border:'1px solid rgb(142, 142, 142)'
   },
   overlay: {
     position: 'absolute',

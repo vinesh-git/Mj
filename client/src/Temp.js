@@ -30,23 +30,14 @@ const Temp = ({ currentId, currentP, setCurrentId, setCurrentP }) => {
 
   return (
     <>
-      <div className="maincontainer">
-        <Container maxWidth="lg">
-        
-          <center>
-            <Brand />
-          </center>
-          
+      <div className="maincontainer" style={{ padding:'0rem 3rem'}}>
           <Grow in>
-            <Container style={{ margin: "1rem" }}>
-              <div container justify="space-between" alignItems="stretch" spacing={3}>
+              <div container justify="space-between" alignItems="stretch" >
                 <div item xs={5} sm={7}>
                   <Posts setCurrentId={setCurrentId} setCurrentP={setCurrentP} />
                 </div>
               </div>
-            </Container>
           </Grow>
-        </Container>
       </div>
     </>
   );

@@ -5,9 +5,10 @@ import Header from '../Header/Header';
 
 import { Link, useNavigate, useLocation  } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
+import Brand from '../Brand/Brand';
 import Post from './Post/Post';
 import useStyles from './styles';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Posts = ({ setCurrentId,setCurrentP }) => {
 
@@ -39,14 +40,23 @@ const Posts = ({ setCurrentId,setCurrentP }) => {
     //loading
      user ? (
       <>
+      <div className='row'>
+        <div className='col-md-9'>
+         <Brand/>
+        </div>
+        <div className='col-md-2'>
+         
+        </div>
+        <div className='col-md-1'>
+          <Button style={{marginTop:"20px",backgroundColor:"#ff793fce"}} variant='contained' onClick={logout}>Logout</Button>
+        </div>
+      </div>
       <Header user={user}/>
-      {/* <Typography variant='h6'>{user.result.name}</Typography> */}
-      <Button variant='contained' onClick={logout}>Logout</Button>
       <Grid className={classes.container} container  alignItems="stretch" spacing={3}>
         {posts.map((post) => (
           !post ? <CircularProgress/> : (
-          <Grid key={post._id} item xs={12} sm={6} md={3}>
-            <Post post={post} setCurrentId={setCurrentId} setCurrentP={setCurrentP}/>
+          <Grid key={post._id} item xs={12} sm={6} md={3} style={{ padding:"50px 0px"}}>
+            <Post post={post} setCurrentId={setCurrentId} setCurrentP={setCurrentP} />
           </Grid>
           )
         ))}

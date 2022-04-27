@@ -1,3 +1,5 @@
+import { colors } from '@material-ui/core';
+import { red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles((theme) => ({
@@ -15,7 +17,7 @@ export default makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#ff793fce",
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -24,7 +26,14 @@ export default makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-  googleButton: {
-    marginBottom: theme.spacing(2),
+  signinButton:{
+    marginTop:theme.spacing(3),
   },
+  googleButton: {
+    marginTop:theme.spacing(1),
+    marginBottom: theme.spacing(2)
+  },
+  thirdbutton:{
+    border:"2px solid",
+  }
 }));

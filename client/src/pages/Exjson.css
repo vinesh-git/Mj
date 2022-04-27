@@ -44,18 +44,10 @@ textarea {
 }
 .description
 {
-  border: 1px solid rgb(190, 188, 188);
-  background-color: rgba(223, 219, 219, 0.116);
+  background-color: rgba(223, 219, 219, 0.605);
   padding: 1rem;
-  margin-bottom: 0;
-}
-.container
-{
-  margin: 2rem;
-  border: 1px solid rgb(190, 188, 188);
-  /* border: 5px solid rgb(175, 13, 13); */
-  
-}
+  color: rgb(142, 142, 142);
+} 
 .DescriptionContainer{
 
 margin-left: 2rem;
@@ -82,8 +74,7 @@ li:hover{
 }
 .container2
 {
- margin: 2rem;
- border: 1px solid rgb(190, 188, 188);
+ margin: 0rem;
  background-color: rgba(223, 219, 219, 0.116);
  display: flex;
 }
@@ -100,11 +91,12 @@ li:hover{
  margin-left: 85rem;
  margin-top: 2rem;
 }
-
-.tab{
-border: 2px solid black;
+.scrolling-wrapper{
+  width: 80%;
+  
+  margin-left: auto;
+  margin-right: auto;
 }
-
 
 
 @media only screen and (min-width : 321px) and (max-width : 800px) {
@@ -166,7 +158,7 @@ li:hover{
   }
   .dataExplorer {
     border: 1px solid black;  
-    font-size: 10px;
+    font-size: 20rem;
   }
   .detailes{
     display: flex;
@@ -189,7 +181,6 @@ li:hover{
       display: flex;
       width: 100%;
       height: 20rem;
-      border: 1px solid black;
       margin: 0 auto;
       padding: 1rem;
   }

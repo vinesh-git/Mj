@@ -282,6 +282,12 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 									<progress id="progressBarcsv" value="0" max="100" ></progress>
 								</button>
 							</div>
+							<div className="upload">
+								<button type='button' className='btn-warning'  >
+									<i className='fa fa-upload'>Choose multiple files</i>
+									<input type="file" name="file2" id="" required class="form-control"/>
+								</button>
+							</div>
 							<h5 id='fileListcsv'></h5>
 							<h3 id="statuscsv"></h3>
 							<p id="loaded_n_totalcsv"></p>

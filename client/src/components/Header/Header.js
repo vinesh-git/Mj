@@ -8,6 +8,7 @@ import { Link, useNavigate, useLocation  } from 'react-router-dom';
 import Brand from '../Brand/Brand';
 import { useDispatch } from 'react-redux';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Header = ({user}) => {
 
@@ -18,27 +19,21 @@ const Header = ({user}) => {
   return (
     user ? (<>
       <div className="header">
-      <div className="left">
-        <div id="h1">Datasets</div>
-        <div id="description">
-          Explore, analyze, and share quality data.{" "}
-          <a href="https://ihub-data.iiit.ac.in/" rel="">
-            Learn more
-          </a>{" "}
-          about inai dataset collections, creations, and collaborations.
+        <div className='row'>
+        <div className="col-9">
+          <div id="description">
+            <div id="h1">Datasets</div>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu feugiat pretium nibh ipsum consequat nisl vel. Parturient montes nascetur ridiculus mus. Nulla aliquet enim tortor at auctor urna nunc id.
+           <br></br> <button className=" primary row" style={{margin:"30px 1px"}} onClick={() => setButtonPopup(true)}>
+              + New Dataset
+            </button> 
+          </div>
         </div>
-        <div className="button-container">
-          <button className="button primary" onClick={() => setButtonPopup(true)}>
-          + New Dataset
-          </button>
-          {/* <button className="button secondary">
-          Your Work
-          </button> */}
+        <div className="col-3 right" id='image'>
+            <img src={img} alt=''/>
         </div>
-      </div>
-      <div className="right">
-          <img src={img} alt=''/>
-      </div>
+        </div>
+        
     </div>
     <Popup trigger={buttonPopup} setTrigger = {setButtonPopup}>
       <Form currentId={currentId} setCurrentId={setCurrentId} setTrigger={setButtonPopup}/>

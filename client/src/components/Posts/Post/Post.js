@@ -69,14 +69,15 @@ const Post = ({ post, setCurrentId, setCurrentP }) => {
 
   return (
     <div>
-      <Card className={classes.card}>
+      <Card className={classes.card} style={{backgroundColor:"#F5F5F5"}}>
         <div onClick={() => {
-            setCurrentId(post._id);
+            setCurrentId(post._id); 
             setCurrentP(post);
             navigate("/user");
-          }}
+            
+          }} style={{padding:"0px",margin:"0px", borderRadius:"15px 15px 0px 0px"}}
         >
-          <CardMedia className={classes.media} image={ImagePost} title={post.title} />
+          <CardMedia className={classes.media} image={ImagePost} style={{margin:'0px'}} title={post.title} />
           <div className={classes.overlay}>
             <div style={{ fontSize: "3vh" }}>{post.title}</div>
             <Typography variant="body2">
