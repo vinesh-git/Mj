@@ -32,12 +32,14 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 	const SingleFileChange = (e) => {
 		setSingleFile(e.target.files[0]);
 	}
+
+	
+	
 	const uploadSingleFile = async () => {
 		const formData = new FormData();
 		formData.append('file', singeFile);
 		await singleFileUpload(formData);
 	}
-
 
 
 	function updateList() {
@@ -197,6 +199,7 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		
 		const filejson = document.forms['dform']['jsonfile'];
 		const validtxt = ["json", "JSON"];
 
@@ -272,22 +275,23 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 							{/* <div className="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
 							<span className="label-input100">Code</span>
 							<textarea className="input100" name="message" placeholder="Start typing Code here..." value={postData.code} onChange={(e) => setPostData({ ...postData, code: e.target.value })}></textarea>
-						</div> */}
+						</div>  */}
 						
-							<div className="upload">
+							 <div className="upload">
 								<button type='button' className='btn-warning'  >
 									<i className='fa fa-upload'>Choose excel or csv files</i>
-
+									{/* <input type="file" id="helocsv" name="csvexcelfile" align="center"  onChange={e => { mulitpleFilesChange(e); }} multiple/> */}
 									<input type="file" id="helocsv" name="csvexcelfile" align="center" onChange={e => { loadFileAsTextCsv(e); uploadSingleFile(); updateListcsv(); uploadFilecsv(); }} />
+									{/* <input type="file" onChange={(e) => MultipleFileChange(e)} className="form-control" multiple /> */}
 									<progress id="progressBarcsv" value="0" max="100" ></progress>
 								</button>
 							</div>
-							<div className="upload">
+							{/* <div className="upload">
 								<button type='button' className='btn-warning'  >
 									<i className='fa fa-upload'>Choose multiple files</i>
 									<input type="file" name="file2" id="" required class="form-control"/>
 								</button>
-							</div>
+							</div> */}
 							<h5 id='fileListcsv'></h5>
 							<h3 id="statuscsv"></h3>
 							<p id="loaded_n_totalcsv"></p>
@@ -303,6 +307,7 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 									<i className='fa fa-upload'>Choose the Dataset</i>
 
 									<input type="file" id="helo" name="jsonfile" align="center" onChange={e => { loadFileAsText(e); updateList(); uploadFile() }} required />
+
 									<progress id="progressBar" value="0" max="100" ></progress>
 								</button>
 							</div>
@@ -312,7 +317,7 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
 
 							<div className="container-contact100-form-btn">
-								<button className="contact100-form-btn" onClick={uploadSingleFile()}>
+								<button className="contact100-form-btn" onSubmit={uploadSingleFile()} >
 									<span>
 										Submit
 									</span>

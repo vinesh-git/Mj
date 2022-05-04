@@ -7,7 +7,6 @@ import { readFileSync,unlinkSync } from 'fs';
 
 import PostMessage from '../models/postMessage.js';
 
-
 const router = express.Router();
 
 export const getPosts = async (req, res) => { 
@@ -17,6 +16,23 @@ export const getPosts = async (req, res) => {
         res.status(200).json(postMessages);
     } catch (error) {
         res.status(404).json({ message: error.message });
+    }
+}
+
+export const  getPostsBySearch = async (req, res) => {
+
+    //Here we using Query(working explained) /posts?page=1 --> page is now 1 --> posts/1 (used for searching/quering)
+    //But for params /posts/:id --> we can change id by what ever we send like if id is 123 --> /posts/123 (used for geting some resources)
+
+    const {searchQuery, tags} = req.query
+    try{
+            const title = new RegExp(searchQuery, 'i'); //i is the ignore case in back end
+            
+            const posts = await PostMessage.find({ $or:[{title}, {tags: {$in: tags.split(',')} }] });
+
+            res.json({data:posts});
+    }catch(error){
+        res.status(404).json({message: error.message});
     }
 }
 
@@ -35,6 +51,7 @@ export const selectPost = async (req, res) => {
 export const createPost = async (req, res) => {
     const post = req.body;
     let code;
+    // var flag = true;
     var flag = false;
     if(req.body.code == "")
     {
@@ -60,6 +77,7 @@ export const createPost = async (req, res) => {
         if(!flag){
             newPostMessage.code = await csv().fromString(req.body.code);
         }
+        
         await newPostMessage.save();
         res.status(201).json(newPostMessage );
     } catch (error) {
@@ -175,5 +193,7 @@ export const singleFileUpload = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+
+
 
 export default router;
