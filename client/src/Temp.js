@@ -56,25 +56,6 @@ const Temp = ({ currentId, currentP, setCurrentId, setCurrentP }) => {
   return (
     <>
       <div className="maincontainer" style={{ padding:'0rem 3rem'}}>
-      <AppBar position="static" color="green">
-          <TextField 
-          name="search" 
-          variant="outlined" 
-          label="search Datasets" 
-          onKeyPress={handleKeyPress} 
-          fullWidth 
-          defautlValue={search}
-          onChange={(e) => setSearch(e.target.value)}
-          />
-        <ChipInput 
-          value={tags}
-          onAdd={handleAdd}
-          onDelete={handleDelete} 
-          label= "Search Tags"
-          variant="outlined"
-        />
-        <Button onClick={searchPost} color="inherit" variant="contained">Search</Button>
-        </AppBar>
           <Grow in>
               <div container justify="space-between" alignItems="stretch" >
                 <div item xs={5} sm={7}>
