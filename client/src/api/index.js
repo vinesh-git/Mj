@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { CREATE } from '../constants/actionTypes';
 
 const url = 'http://localhost:5000/posts';
 
@@ -8,6 +9,7 @@ API.interceptors.request.use((req) => {
     if(localStorage.getItem('profile')) {
         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
     }
+
     return req;
 });
 
@@ -19,12 +21,18 @@ export const singleFileUpload = async (data) =>{
         console.log(error);
     }
 }
+export const createPost = async (data,dispatch) =>{
+    try{
+        await API.post('/posts/createpost', data);
+        // dispatch({ type: CREATE, payload: data });
+    }catch(error) {
+        console.log(error);
+    }
+}
 
-
- 
 export const fetchPosts = () => API.get('/posts');
 export const feacthPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&tags=${searchQuery.tags}`);
-export const createPost = (newPost) => API.post('/posts', newPost);
+// export const createPost = (newPost) => API.post('/posts', newPost);
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`);
 export const updatePost = (id, updatedPost) => API.patch(`/posts/${id}`, updatedPost);
 export const deletePost = (id) => API.delete(`/posts/${id}`);

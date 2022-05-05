@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Exjson from './pages/Exjson';
+import YourWork from './pages/YourWork';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Temp from "./Temp";
 import { useDispatch } from 'react-redux';
@@ -22,6 +23,7 @@ const App = () => {
        <Route exact path="*" element={<Navigate to="/posts" replace />}/>
        <Route exact path="/"  element={<Temp currentId={currentId} setCurrentId={setCurrentId} currentP={currentP} setCurrentP={setCurrentP}/>} />
        <Route exact path="/posts/search" element={<Temp currentId={currentId} setCurrentId={setCurrentId} currentP={currentP} setCurrentP={setCurrentP}/>} />
+       <Route exact path="/yourWork" element={<YourWork currentId={currentId} currentP={currentP}/>} />
        <Route exact path='/auth' element={<Auth />}/>
        <Route exact path="/user" element={<Exjson currentId={currentId} currentP={currentP} />}/>
      </Routes>

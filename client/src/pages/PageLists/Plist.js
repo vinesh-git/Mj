@@ -1,10 +1,10 @@
 import React from 'react'
 import "./list.scss";
  
-function Plist({titlee,active,setSelected,id}) {
+function Plist({title,active,setSelected,filee}) {
   return (
-     <li className= {active ? "plist active": "plist"} onClick={()=>setSelected(id)}>
-       {titlee}
+     <li className= {active ? "plist active": "plist"} onClick={()=>setSelected(filee)}>
+       {title}
      </li>
   )
 }

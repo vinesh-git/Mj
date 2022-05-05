@@ -1,18 +1,20 @@
-import express from 'express';
+import express, { json } from 'express';
 import mongoose from 'mongoose';
+import csvToJson from 'convert-csv-to-json';
 import csv from 'csvtojson';
+import fs from 'fs';
 
 import excelToJson from 'convert-excel-to-json';
 import { readFileSync,unlinkSync } from 'fs';
 
 import PostMessage from '../models/postMessage.js';
 
+
 const router = express.Router();
 
 export const getPosts = async (req, res) => { 
     try {
         const postMessages = await PostMessage.find();
-                
         res.status(200).json(postMessages);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -48,42 +50,42 @@ export const selectPost = async (req, res) => {
     }
 }
 
-export const createPost = async (req, res) => {
-    const post = req.body;
-    let code;
-    // var flag = true;
-    var flag = false;
-    if(req.body.code == "")
-    {
-        flag = true;
-        code = "No Input provided";
-    }
-    else if(req.body.code == "EMPTY" ){
-        flag = true;
-        code =  excelToJson({
-            source: readFileSync('../server/uploads/sample.xls') // fs.readFileSync return a Buffer
-        });
-        try{
-            unlinkSync('../server/uploads/sample.xls');
-           }catch(err){
-            console.log(err);
-           }
-    }
+// export const createPost = async (req, res) => {
+
+//     console.log(req.body.selectedMFile);
+//     const post = req.body;
+//     let code;
+//     var flag = false;
+//     if(req.body.code == "")
+//     {
+//         flag = true;
+//         code = "No Input provided";
+//     }
+//     else if(req.body.code == "EMPTY" ){
+//         flag = true;
+//         code =  excelToJson({
+//             source: readFileSync('../server/uploads/sample.xls') // fs.readFileSync return a Buffer
+//         });
+//         try{
+//             unlinkSync('../server/uploads/sample.xls');
+//            }catch(err){
+//             console.log(err);
+//            }
+//     }
     
-    const newPostMessage = new PostMessage({...post, code:code, creator: req.userId, createdAt: new Date().toISOString()})
-    // const newPostMessage = new PostMessage({ title, code, selectedFile, creator, tags,description })
+//     const newPostMessage = new PostMessage({...post, code:code, creator: req.userId, createdAt: new Date().toISOString()})
+//     // const newPostMessage = new PostMessage({ title, code, selectedFile, creator, tags,description })
     
-    try {
-        if(!flag){
-            newPostMessage.code = await csv().fromString(req.body.code);
-        }
-        
-        await newPostMessage.save();
-        res.status(201).json(newPostMessage );
-    } catch (error) {
-        res.status(409).json({ message: error.message });
-    }
-}
+//     try {
+//         if(!flag){
+//             newPostMessage.code = await csv().fromString(req.body.code);
+//         }
+//         await newPostMessage.save();
+//         res.status(201).json(newPostMessage );
+//     } catch (error) {
+//         res.status(409).json({ message: error.message });
+//     }
+// }
 
 // export const createPost = async (req, res) => {
 //     // const { title, code, selectedFile, creator, tags,description } = req.body;
@@ -143,6 +145,12 @@ export const deletePost = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
+    try{
+        unlinkSync('../server/uploads/sample.xls');
+        }catch(err){
+                    console.log(err);
+                   }
+
     await PostMessage.findByIdAndRemove(id);
 
     res.json({ message: "Post deleted successfully." });
@@ -174,17 +182,6 @@ export const likePost = async (req, res) => {
     res.json(updatedPost);
 }
 
-// export const likePost = async (req, res) => {
-//     const { id } = req.params;
-
-//     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-    
-//     const post = await PostMessage.findById(id);
-
-//     const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
-    
-//     res.json(updatedPost);
-// }
 
 export const singleFileUpload = async (req, res, next) => {
     try{
@@ -193,7 +190,74 @@ export const singleFileUpload = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+export const createPost = async (req, res, next) => {
+    // const dir = '../server/uploads/temp';
+    // if (!fs.existsSync(dir)) {
+    //     fs.mkdirSync(dir, {
+    //         recursive: true
+    //     });
+    // }
+    // console.log(req.body)
+    // console.log(req.files);
+    try{
+        let filesArray = [];
+        req.files.forEach(element => {
+            let data = '';
+            if(element.mimetype == 'application/vnd.ms-excel' || element.mimetype == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+            {
+                data = excelToJson({
+                            source: readFileSync(element.path) // fs.readFileSync return a Buffer
+                            });
+            }
+            // else if(element.mimetype == 'text/csv')
+            // {
+            //     // csv()
+            //     // .fromFile(csvFilePath)
+            //     // .then(data)
+            // }
+            else if(element.mimetype == 'text/plain')
+            {
+                data = fs.readFileSync(element.path).toString().split('\n');
+            }
+            else if(element.mimetype == 'application/json')
+            {
+                data = JSON.parse(fs.readFileSync(element.path));
+                console.log(data);
+            }
+            const file = {
+                fileName: element.originalname,
+                filePath: element.path,
+                fileType: element.mimetype,
+                fileSize: fileSizeFormatter(element.size, 2),
+                fileData: data
+            }
+            filesArray.push(file);
+        });
+        const post = req.body;
+        const newPostMessage = new PostMessage({...post,
+            title: req.body.title,
+            code:"",
+            creator: req.userId,
+            name: req.body.name,
+            tags: req.body.tags,
+            files: filesArray,
+        })
+        await newPostMessage.save();
+        res.status(201).send('Files Uploaded Successfully');
+    }catch(error){
+        res.status(400).send(error.message);
+    }
+}
 
+const fileSizeFormatter = (bytes, decimal) => {
+    if(bytes === 0){
+        return '0 Bytes';
+    }
+    const dm = decimal || 2;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'YB', 'ZB'];
+    const index = Math.floor(Math.log(bytes) / Math.log(1000));
+    return parseFloat((bytes / Math.pow(1000, index)).toFixed(dm)) + ' ' + sizes[index];
 
+}
 
 export default router;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createPost, updatePost } from '../../actions/posts';
-import { singleFileUpload } from '../../api/index';
+import {  updatePost } from '../../actions/posts';
+import { singleFileUpload, createPost } from '../../api/index';
 import { Paper, Typography } from '@material-ui/core';
 
 import "./css/formmain.css";
@@ -10,7 +10,7 @@ import "./css/formutil.css";
 const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
 	// const [postData, setPostData] = useState({ creator: '', title: '', code: '', tags: '', description: '', selectedFile: ''});
-	const [postData, setPostData] = useState({title: '', code: '', tags: '', description: '', selectedFile: ''});
+	const [postData, setPostData] = useState({title: '', code: '', tags: '', description: '', selectedFile: '', selectedMFile: []});
 	const post = useSelector((state) => (currentId ? state.posts.find((message) => message._id === currentId) : null));
 	const dispatch = useDispatch();
 	const user = JSON.parse(localStorage.getItem('profile'));
@@ -23,22 +23,43 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 	const clear = () => {
 		setCurrentId(0);
 		// setPostData({ creator: '', title: '', code: '', tags: '', description: '', selectedFile: '' });
-		setPostData({title: '', code: '', tags: '', description: '', selectedFile: '' });
+		setPostData({title: '', code: '', tags: '', description: '', selectedFile: '', selectedMFile: '' });
 	};
 
 
-	const [singeFile, setSingleFile] = useState('');
+	const [singleFile, setSingleFile] = useState('');
+	const [multipleFiles, setMultipleFiles ] = useState('');
 
 	const SingleFileChange = (e) => {
 		setSingleFile(e.target.files[0]);
 	}
 
-	
-	
+	const MultipleFilesChange = (e) => {
+		setMultipleFiles(e.target.files);
+		setPostData({...postData, selectedMFile: e.target.files});
+		// uploadMultipleFiles(e);
+	}
+
 	const uploadSingleFile = async () => {
 		const formData = new FormData();
-		formData.append('file', singeFile);
+		formData.append('file', singleFile);
 		await singleFileUpload(formData);
+	}
+	const formData = new FormData();
+	const createPosts = async () => {
+		// formData.append('title',postData.title);
+		formData.append('title', postData.title);
+		formData.append('code', postData.code);
+		formData.append('name', user?.result?.name);
+		formData.append('description', postData.description);
+		
+
+		for(let i=0; i< multipleFiles.length; i++)
+		{
+			formData.append('files', multipleFiles[i]);
+		}
+		// setPostData({...postData, selectedMFile:formData})
+		await createPost(formData);
 	}
 
 
@@ -63,82 +84,8 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
 
 
-
-	function _(el) {
-		return document.getElementById(el);
-	}
-
-	function uploadFile(e) {
-		var file = _("helo").files[0];
-		// alert(file.name+" | "+file.size+" | "+file.type);
-		var formdata = new FormData();
-		formdata.append("jsonfile", file);
-		var ajax = new XMLHttpRequest();
-		ajax.upload.addEventListener("progress", progressHandler, false);
-		ajax.addEventListener("load", completeHandler, false);
-		ajax.addEventListener("error", errorHandler, false);
-		ajax.addEventListener("abort", abortHandler, false);
-		ajax.open("POST", "file_upload_parser.php"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
-		//use file_upload_parser.php from above url
-		ajax.send(formdata);
-	}
-
-	function progressHandler(event) {
-		_("loaded_n_total").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
-		var percent = (event.loaded / event.total) * 100;
-		_("progressBar").value = Math.round(percent);
-		_("status").innerHTML = Math.round(percent) + "% uploaded... please wait";
-	}
-
-	function completeHandler(event) {
-		_("status").innerHTML = "File uploaded Succesfully ";
-
-		//wil clear progress bar after successful upload
-	}
-
-	function errorHandler(event) {
-		_("status").innerHTML = "Upload Failed";
-	}
-
-	function abortHandler(event) {
-		_("status").innerHTML = "Upload Aborted";
-	}
-	function uploadFilecsv(e) {
-		var file = _("helocsv").files[0];
-		// alert(file.name+" | "+file.size+" | "+file.type);
-		var formdata = new FormData();
-		formdata.append("csvexcelfile", file);
-		var ajax = new XMLHttpRequest();
-		ajax.upload.addEventListener("progress", progressHandlercsv, false);
-		ajax.addEventListener("load", completeHandlercsv, false);
-		ajax.addEventListener("error", errorHandlercsv, false);
-		ajax.addEventListener("abort", abortHandlercsv, false);
-		ajax.open("POST", "file_upload_parser.php"); // http://www.developphp.com/video/JavaScript/File-Upload-Progress-Bar-Meter-Tutorial-Ajax-PHP
-		//use file_upload_parser.php from above url
-		ajax.send(formdata);
-	}
 	var flag = true, flag2 = true;
 
-	function progressHandlercsv(event) {
-		_("loaded_n_totalcsv").innerHTML = "Uploaded " + event.loaded + " bytes of " + event.total;
-		var percent = (event.loaded / event.total) * 100;
-		_("progressBarcsv").value = Math.round(percent);
-		_("statuscsv").innerHTML = Math.round(percent) + "% uploaded... please wait";
-	}
-
-	function completeHandlercsv(event) {
-		_("statuscsv").innerHTML = "File uploaded Succesfully ";
-
-		//wil clear progress bar after successful upload
-	}
-
-	function errorHandlercsv(event) {
-		_("statuscsv").innerHTML = "Upload Failed";
-	}
-
-	function abortHandlercsv(event) {
-		_("statuscsv").innerHTML = "Upload Aborted";
-	}
 
 	const loadFileAsTextCsv = (e) => {
 
@@ -199,7 +146,6 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		
 		const filejson = document.forms['dform']['jsonfile'];
 		const validtxt = ["json", "JSON"];
 
@@ -217,13 +163,15 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 				alert('Error in Json / Please check file extension');
 				return false;
 			}
-			else if (!flag2) {
-				alert('You can only choose excel or json');
-				return false;
-			}
+			// else if (!flag2) {
+			// 	alert('You can only choose excel or json');
+			// 	return false;
+			// }
 			else {
 				if (currentId === 0) {
-					dispatch(createPost({ ...postData, name: user?.result?.name}));
+					createPosts();
+					// dispatch(createPost(formData));
+					// dispatch(createPost({ ...postData, name: user?.result?.name}));
 					setTrigger(false);
 					clear();
 				} else {
@@ -275,23 +223,18 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 							{/* <div className="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
 							<span className="label-input100">Code</span>
 							<textarea className="input100" name="message" placeholder="Start typing Code here..." value={postData.code} onChange={(e) => setPostData({ ...postData, code: e.target.value })}></textarea>
-						</div>  */}
+						</div> */}
 						
-							 <div className="upload">
+							<div className="upload">
 								<button type='button' className='btn-warning'  >
 									<i className='fa fa-upload'>Choose excel or csv files</i>
-									{/* <input type="file" id="helocsv" name="csvexcelfile" align="center"  onChange={e => { mulitpleFilesChange(e); }} multiple/> */}
-									<input type="file" id="helocsv" name="csvexcelfile" align="center" onChange={e => { loadFileAsTextCsv(e); uploadSingleFile(); updateListcsv(); uploadFilecsv(); }} />
-									{/* <input type="file" onChange={(e) => MultipleFileChange(e)} className="form-control" multiple /> */}
+
+									{/* <input type="file" id="helocsv" name="csvexcelfile" align="center" onChange={e => { loadFileAsTextCsv(e); uploadSingleFile(); updateListcsv(); }} /> */}
+									<input type="file" id="helocsv" name="csvexcelfile" align="center" onChange={e=> {MultipleFilesChange(e)}}  multiple/>
+
 									<progress id="progressBarcsv" value="0" max="100" ></progress>
 								</button>
 							</div>
-							{/* <div className="upload">
-								<button type='button' className='btn-warning'  >
-									<i className='fa fa-upload'>Choose multiple files</i>
-									<input type="file" name="file2" id="" required class="form-control"/>
-								</button>
-							</div> */}
 							<h5 id='fileListcsv'></h5>
 							<h3 id="statuscsv"></h3>
 							<p id="loaded_n_totalcsv"></p>
@@ -306,8 +249,7 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 								<button type='button' className='btn-warning'  >
 									<i className='fa fa-upload'>Choose the Dataset</i>
 
-									<input type="file" id="helo" name="jsonfile" align="center" onChange={e => { loadFileAsText(e); updateList(); uploadFile() }} required />
-
+									<input type="file" id="helo" name="jsonfile" align="center" onChange={e => { loadFileAsText(e); updateList(); }} required />
 									<progress id="progressBar" value="0" max="100" ></progress>
 								</button>
 							</div>
@@ -317,7 +259,7 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
 
 							<div className="container-contact100-form-btn">
-								<button className="contact100-form-btn" onSubmit={uploadSingleFile()} >
+								<button className="contact100-form-btn" >
 									<span>
 										Submit
 									</span>

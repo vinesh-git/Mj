@@ -7,7 +7,7 @@ const postSchema = mongoose.Schema({
     name: String,
     tags: [String],
     description: String,
-    selectedFile: String,
+    files: [Object],
     likes: {
         type: [String],
         default: [],
@@ -20,7 +20,7 @@ const postSchema = mongoose.Schema({
         type: Date,
         default: new Date(),
     },
-})
+});
 
 var PostMessage = mongoose.model('PostMessage', postSchema);
 

@@ -22,45 +22,11 @@ import home from "../images/home-button.png";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Exjson = ({ currentId, currentP }) => {
-  var jf, jsEncode, csvjf;
-  try {
-    const jsfile = currentP.selectedFile;
-    const jsreplace = jsfile.replace("data:application/json;base64,", "");
-    jsEncode = JSON.parse(atob(jsreplace));
-    // jsEncode = JSON.parse(jsfile);
-    jf = JSON.stringify(jsEncode, undefined, 4);
-    csvjf = JSON.stringify(currentP.code, undefined, 4);
-  } catch (e) {
-    console.log(e);
-  }
-  if (typeof currentP.code === "undefined") {
-    currentP.code = "No Code Input Given";
-  }
-  if (currentP.description === "") {
-    currentP.description = "No Description Provided";
-  }
-  const dataPart = [
-    {
-      id: 1,
-      title: "Data",
-      content: currentP.description,
-      name: currentP.name,
-      code: "",
-      jff: jf,
-      tabelfm: jsEncode,
-    },
-  ];
-  const codePart = [
-    {
-      id: 1,
-      title: "Data",
-      content: currentP.description,
-      name: currentP.name,
-      code: "",
-      jff: csvjf,
-      tabelfm: currentP.code,
-    },
-  ];
+  
+
+  const post = useSelector((state) =>
+    currentId ? state.posts.find((message) => message._id === currentId) : null
+  );
 
   const [selected, setSelected] = useState("data");
   const [data, setData] = useState([]);
@@ -68,54 +34,53 @@ const Exjson = ({ currentId, currentP }) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  const post = useSelector((state) =>
-    currentId ? state.posts.find((message) => message._id === currentId) : null
-  );
 
-  const downloadTxtFile = (e) => {
-    const element = document.createElement("a");
-    const file = new Blob([jf], {
-      type: "JSON/plain",
-    });
-    element.href = URL.createObjectURL(file);
-    element.download = "myFile.JSON";
-    document.body.appendChild(element);
-    element.click();
-  };
+  // const downloadTxtFile = (e) => {
+  //   const element = document.createElement("a");
+  //   const file = new Blob([jf], {
+  //     type: "JSON/plain",
+  //   });
+  //   element.href = URL.createObjectURL(file);
+  //   element.download = "myFile.JSON";
+  //   document.body.appendChild(element);
+  //   element.click();
+  // };
 
-  const downloadTxtFilecsv = () => {
-    const element = document.createElement("a");
-    const file = new Blob([csvjf], {
-      type: "JSON/plain",
-    });
-    element.href = URL.createObjectURL(file);
-    element.download = "DownloadFile.JSON";
-    document.body.appendChild(element);
-    element.click();
-  };
-  const list1 = [
-    {
-      id: "data",
-      titlee: "Data",
-    },
-    {
-      id: "code",
-      titlee: "Code",
-    },
-  ];
-  useEffect(() => {
-    switch (selected) {
-      case "data":
-        setData(dataPart);
-        break;
-      case "code":
-        setData(codePart);
-        break;
-      default:
-        setData(dataPart);
-        break;
-    }
-  }, [selected]);
+  // const downloadTxtFilecsv = () => {
+  //   const element = document.createElement("a");
+  //   const file = new Blob([csvjf], {
+  //     type: "JSON/plain",
+  //   });
+  //   element.href = URL.createObjectURL(file);
+  //   element.download = "DownloadFile.JSON";
+  //   document.body.appendChild(element);
+  //   element.click();
+  // };
+
+
+  // const list1 = [
+  //   {
+  //     id: "data",
+  //     titlee: "Data",
+  //   },
+  //   {
+  //     id: "code",
+  //     titlee: "Code",
+  //   },
+  // ];
+  // useEffect(() => {
+  //   switch (selected) {
+  //     case "data":
+  //       setData(dataPart);
+  //       break;
+  //     case "code":
+  //       setData(codePart);
+  //       break;
+  //     default:
+  //       setData(dataPart);
+  //       break;
+  //   }
+  // }, [selected]);
 
   try {
     return (
@@ -141,18 +106,20 @@ const Exjson = ({ currentId, currentP }) => {
                 <img src={home} alt="" style={{ width: "30px" }} />
                 </button> */}
               <div className="col">
-               <Button style={{backgroundColor:"white",margin:"10px",width:"auto",border:"2px solid #ff793fce"}} variant='contained' onClick={selected==='data'?downloadTxtFile:downloadTxtFilecsv} >DOWNLOAD</Button>
+              <Button style={{backgroundColor:"white",margin:"10px",width:"auto",border:"2px solid #ff793fce"}} variant='contained' >DOWNLOAD</Button>
+
+               {/* <Button style={{backgroundColor:"white",margin:"10px",width:"auto",border:"2px solid #ff793fce"}} variant='contained' onClick={selected==='data'?downloadTxtFile:downloadTxtFilecsv} >DOWNLOAD</Button> */}
               </div>
               <div className="col d-flex justify-content-end">
                 <Button style={{backgroundColor:"#ff793fce",margin:"10px",width:"auto"}} variant='contained' onClick={() => { navigate("/");}} >HOME</Button>
               </div>
             </div>
             <div className="tab">
-              {data.map((d) => (
+              
                 <>
                   <div className="container1">
                     <div className="description row" >Description</div>
-                    <div className="DescriptionContainer row">{d.content}</div>
+                    <div className="DescriptionContainer row">{post.description}</div>
                   </div>
                   <div className="container2 row" style={{margin:"0rem 2rem"}}>
                     <div className="left-container2 col">
@@ -162,18 +129,30 @@ const Exjson = ({ currentId, currentP }) => {
                           </div>
                       </div>
                       <Typography className={classes.title} gutterBottom variant="h5" component="h2">
-                        <div id="creator"> {d.name} </div>
+                        <div id="creator"> {post.name} </div>
                       </Typography>
                       <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
-                          {d.code}
+                          d.code
                         </Typography>
+                        <Typography className={classes.title} gutterBottom variant="h5" component="h2">
+                        <ul>
+                          {
+                            post.files.map((file) => (
+                              <>
+                              <Plist title={file.fileName} active={selected.filePath === file.filePath} filee={file} setSelected={setSelected}/>
+                              </>
+                            ))
+                          }
+                        </ul>
+                        <div id="creator"> {post.name} </div>
+                      </Typography>
                       </CardContent>
                     </div>
                     <div className="codeDiv col">
                       <div className="code">
                         <code id="output">
-                          <textarea rows="60" cols="80" id="textbox" value={d.jff}></textarea>
+                            <textarea rows="60" cols="80" id="textbox" value={JSON.stringify(selected.fileData)}></textarea>
                         </code>
                       </div>
                     </div>
@@ -182,10 +161,9 @@ const Exjson = ({ currentId, currentP }) => {
                     <div className="description row" >DETAILS</div>
                   </div>
                   <div className="scrolling-wrapper">
-                    {<JsonToTable json={d.tabelfm} />}
+                  {<JsonToTable json={selected.fileData}/>}
                   </div>
                 </>
-              ))}
             </div>
             <CardActions className={classes.cardActions}>
               {currentP.likeCount}
