@@ -177,6 +177,9 @@ li:hover{
     padding: 2px;
   }
 
+  .plist{
+    border: 1px solid black;
+  }
   .code{
       display: flex;
       width: 100%;

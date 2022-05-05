@@ -135,17 +135,17 @@ const Exjson = ({ currentId, currentP }) => {
                         <Typography variant="body2" color="textSecondary" component="p">
                           d.code
                         </Typography>
-                        <Typography className={classes.title} gutterBottom variant="h5" component="h2">
-                        <ul>
+                        <Typography className={classes.title}  variant="h5" component="h2">
+                        <ul  style={{width:"100%",height:"200px",padding:"10px",overflow:"auto"}}>
                           {
                             post.files.map((file) => (
-                              <>
+                              <div className="plist" style={{height:"50px",color:"#ff793fce"}}>
                               <Plist title={file.fileName} active={selected.filePath === file.filePath} filee={file} setSelected={setSelected}/>
-                              </>
-                            ))
+                              </div>
+                            ))  
                           }
                         </ul>
-                        <div id="creator"> {post.name} </div>
+                        <div id="creator">creator : {post.name} </div>
                       </Typography>
                       </CardContent>
                     </div>
