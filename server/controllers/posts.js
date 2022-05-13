@@ -222,7 +222,6 @@ export const createPost = async (req, res, next) => {
             else if(element.mimetype == 'application/json')
             {
                 data = JSON.parse(fs.readFileSync(element.path));
-                console.log(data);
             }
             const file = {
                 fileName: element.originalname,
@@ -239,7 +238,7 @@ export const createPost = async (req, res, next) => {
             code:"",
             creator: req.userId,
             name: req.body.name,
-            tags: req.body.tags,
+            tags: req.body.tags.split(','),
             files: filesArray,
         })
         await newPostMessage.save();

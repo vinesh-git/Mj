@@ -176,31 +176,93 @@ const Posts = ({ setCurrentId, setCurrentP }) => {
       </>
     ) : (
       <>
-        <AppBar position="static" color="green">
-          <TextField
-            name="search"
-            variant="outlined"
-            label="search Datasets"
-            onKeyPress={handleKeyPress}
-            fullWidth
-            defautlValue={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <ChipInput
-            value={tags}
-            onAdd={handleAdd}
-            onDelete={handleDelete}
-            label="Search Tags"
-            variant="outlined"
-          />
-          <Button onClick={searchPost} color="inherit" variant="contained">
-            Search
-          </Button>
-        </AppBar>
-        <Button component={Link} to="/auth" variant="contained" fullWidth>
-          {" "}
-          Sign In
-        </Button>
+        <div className="row">
+          <div className="col-md-4">
+            <Brand />
+          </div>
+          <div className="col-md-5" style={{padding:"0px"}}>
+            <div className="row d-flex justify-content-end">
+              <div className="col-md-4 d-flex justify-content-end" >
+                <TextField
+                  name="search"
+                  label="Search By Name"
+                  onKeyPress={handleKeyPress}
+                  defautlValue={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  style={{marginTop:"10px"}}
+                />
+              </div>
+              <div className="col-md-5">
+                <ChipInput
+                  value={tags}
+                  onAdd={handleAdd}
+                  onDelete={handleDelete}
+                  label="Search Tags"
+                />
+              </div>
+              <div className="col-md-3 d-flex justify-content-start">
+                <Button
+                style={{
+                  margin: "15px 0px 0px 0px",  
+                  height: "50px",
+                  background:"White",
+                  border:"2px solid #ff793fce"
+                
+                }}
+                  onClick={searchPost}
+                  variant="contained"
+                >
+                  
+                  Search
+                </Button>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-2 d-flex justify-content-end">
+          <Button style={{marginTop:"20px",backgroundColor:"#ff793fce", height: "50px"}} variant='contained' component={Link} to="/yourWork">Your Work</Button>
+
+          </div>
+          <div className="col-md-1 d-flex justify-content-end">
+            <Button
+              style={{
+                marginTop: "20px",
+                backgroundColor: "#ff793fce",
+                height: "50px",
+              }}
+              variant="contained"
+              component={Link} to="/auth"
+            >
+              SignIn
+            </Button>
+          </div>
+        </div>
+        <Grid
+          className={classes.container}
+          container
+          alignItems="stretch"
+          spacing={3}
+        >
+        {posts.map((post) =>
+            !post ? (
+              <CircularProgress />
+            ) : (
+              <Grid
+                key={post._id}
+                item
+                xs={12}
+                sm={6}
+                md={3}
+                style={{ padding: "50px 0px" }}
+              >
+                <Post
+                  post={post}
+                  setCurrentId={setCurrentId}
+                  setCurrentP={setCurrentP}
+                />
+              </Grid>
+            )
+          )}
+        </Grid>
       </>
     )
   );

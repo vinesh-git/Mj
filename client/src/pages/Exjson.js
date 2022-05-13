@@ -82,6 +82,8 @@ const Exjson = ({ currentId, currentP }) => {
   //   }
   // }, [selected]);
 
+
+
   try {
     return (
       <>
@@ -152,6 +154,8 @@ const Exjson = ({ currentId, currentP }) => {
                     <div className="codeDiv col">
                       <div className="code">
                         <code id="output">
+                        
+                        <img src={`http://localhost:5000/${selected.filePath}`} height="200" className="card-img-top img-responsive" alt="img"/>
                             <textarea rows="60" cols="80" id="textbox" value={JSON.stringify(selected.fileData)}></textarea>
                         </code>
                       </div>

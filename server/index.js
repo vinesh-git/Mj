@@ -18,8 +18,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use('/posts',postRoutes);
-// app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/user', userRoutes);
+
+
 
 
 // const CONNECTION_URL = 'mongodb+srv://vivek:vivek123@cluster0.mydlu.mongodb.net/mernstack?retryWrites=true&w=majority';

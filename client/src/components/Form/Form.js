@@ -50,6 +50,7 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 		// formData.append('title',postData.title);
 		formData.append('title', postData.title);
 		formData.append('code', postData.code);
+		formData.append('tags',postData.tags);
 		formData.append('name', user?.result?.name);
 		formData.append('description', postData.description);
 		
@@ -150,24 +151,24 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 		const validtxt = ["json", "JSON"];
 
 
-		if (filejson !== '') {
-			var pos_of_dot = filejson.value.lastIndexOf('.') + 1;
-			var json_ext = filejson.value.substring(pos_of_dot);
+		// if (filejson !== '') {
+		// 	var pos_of_dot = filejson.value.lastIndexOf('.') + 1;
+		// 	var json_ext = filejson.value.substring(pos_of_dot);
 
-			var result = validtxt.includes(json_ext);
-			if (result === false) {
-				alert('Please select the files with extension json or JSON');
-				return false;
-			}
-			else if (!flag) {
-				alert('Error in Json / Please check file extension');
-				return false;
-			}
+		// 	var result = validtxt.includes(json_ext);
+		// 	if (result === false) {
+		// 		alert('Please select the files with extension json or JSON');
+		// 		return false;
+		// 	}
+		// 	else if (!flag) {
+		// 		alert('Error in Json / Please check file extension');
+		// 		return false;
+		// 	}
 			// else if (!flag2) {
 			// 	alert('You can only choose excel or json');
 			// 	return false;
 			// }
-			else {
+			// else {
 				if (currentId === 0) {
 					createPosts();
 					// dispatch(createPost(formData));
@@ -179,8 +180,8 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 					setTrigger(false);
 					clear();
 				}
-			}
-		}
+			// }
+		// }
 		
 	};
 
@@ -217,7 +218,7 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 
 							<div className="wrap-input100 bg1 rs1-wrap-input100">
 								<span className="label-input100">Tag</span>
-								<input className="input100" type="text" name="phone" placeholder="Enter the tags(comma Separated)" value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value.split(',') })} />
+								<input className="input100" type="text" name="phone" placeholder="Enter the tags(comma Separated)" value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value})} />
 							</div>
 
 							{/* <div className="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate = "Please Type Your Message">
@@ -245,17 +246,17 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 								<span className="label-input100">Description</span>
 								<textarea className="input100" name="message" placeholder="Describe the dataset.." value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })} ></textarea>
 							</div>
-							<div className="upload">
+							{/* <div className="upload">
 								<button type='button' className='btn-warning'  >
 									<i className='fa fa-upload'>Choose the Dataset</i>
 
 									<input type="file" id="helo" name="jsonfile" align="center" onChange={e => { loadFileAsText(e); updateList(); }} required />
 									<progress id="progressBar" value="0" max="100" ></progress>
 								</button>
-							</div>
-							<h5 id='fileList'></h5>
+							</div> */}
+							{/* <h5 id='fileList'></h5>
 							<h3 id="status"></h3>
-							<p id="loaded_n_total"></p>
+							<p id="loaded_n_total"></p> */}
 
 
 							<div className="container-contact100-form-btn">
