@@ -127,7 +127,7 @@ const Posts = ({ setCurrentId, setCurrentP }) => {
             </div>
           </div>
           <div className="col-md-2 d-flex justify-content-end">
-          <Button style={{marginTop:"20px",backgroundColor:"#ff793fce", height: "50px"}} variant='contained' component={Link} to="/yourWork">{user?.result?.name}</Button>
+          <Button style={{marginTop:"20px",backgroundColor:"#ff793fce", height: "50px"}} variant='contained' component={Link} to="/posts/yourWork">{user?.result?.name}</Button>
 
           </div>
           <div className="col-md-1 d-flex justify-content-end">

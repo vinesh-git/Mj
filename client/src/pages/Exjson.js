@@ -82,7 +82,25 @@ const Exjson = ({ currentId, currentP }) => {
   //   }
   // }, [selected]);
 
-
+let fileDisplay;
+let isTable;
+if(selected.fileType==='text/plain')
+{
+  fileDisplay = <textarea rows="60" cols="80" id="textbox" value={JSON.stringify(selected.fileData)}></textarea>
+}
+else if(selected.fileType==='image/jpeg' || selected.fileType==='image/png')
+{
+  fileDisplay = <img src={`http://localhost:5000/${selected.filePath}`} height="200" className="card-img-top img-responsive" alt="img"/>
+}
+else if(selected.fileType==='application/json')
+{
+  fileDisplay = <textarea rows="60" cols="80" id="textbox" value={JSON.stringify(selected.fileData)}></textarea>
+  isTable=true;
+}
+else
+{
+  fileDisplay = <textarea rows="60" cols="80" id="textbox" value={`File Format is not supported\nPlease downlaod the file to View`}></textarea>
+}
 
   try {
     return (
@@ -154,19 +172,24 @@ const Exjson = ({ currentId, currentP }) => {
                     <div className="codeDiv col">
                       <div className="code">
                         <code id="output">
-                        
-                        <img src={`http://localhost:5000/${selected.filePath}`} height="200" className="card-img-top img-responsive" alt="img"/>
-                            <textarea rows="60" cols="80" id="textbox" value={JSON.stringify(selected.fileData)}></textarea>
+                            {fileDisplay}
                         </code>
                       </div>
                     </div>
                   </div>
-                  <div className="container1" style={{marginTop:"5rem"}}>
+                  
+                  
+                    {isTable && (
+                    <div>
+                    <div className="container1" style={{marginTop:"5rem"}}>
                     <div className="description row" >DETAILS</div>
-                  </div>
-                  <div className="scrolling-wrapper">
-                  {<JsonToTable json={selected.fileData}/>}
-                  </div>
+                    </div>
+                    <div className="scrolling-wrapper">
+                    <JsonToTable json={selected.fileData}/>
+                    </div>
+                    </div>
+                    )}
+                  
                 </>
             </div>
             <CardActions className={classes.cardActions}>

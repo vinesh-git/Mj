@@ -142,14 +142,17 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
     const { id } = req.params;
-
+    const post = await PostMessage.findById(id);
+    
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-
-    try{
-        unlinkSync('../server/uploads/sample.xls');
-        }catch(err){
-                    console.log(err);
-                   }
+    post.files.forEach(element => {
+        try{
+            unlinkSync(element.filePath);
+            }catch(err){
+                        console.log(err);
+            }
+    })
+    
 
     await PostMessage.findByIdAndRemove(id);
 
@@ -159,17 +162,11 @@ export const deletePost = async (req, res) => {
 export const likePost = async (req, res) => {
     
     const { id } = req.params;
-    
     if(!req.userId) return res.json({message: 'not Authenticated'})
-
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
-    
     const post = await PostMessage.findById(id);
-
-    console.log(id)
     const index = post.likes.includes(String(req.userId));
     // const index = post.likes.findById( (id) => id === String(req.userId) );
-
     if(index === false){
         //like the post
         post.likes.push(req.userId);

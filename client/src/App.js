@@ -20,10 +20,11 @@ const App = () => {
   return ( 
     <Router>
      <Routes>
-       <Route exact path="*" element={<Navigate to="/posts" replace />}/>
+       <Route exact path="*" element={<Navigate to="/" replace />}/>
        <Route exact path="/"  element={<Temp currentId={currentId} setCurrentId={setCurrentId} currentP={currentP} setCurrentP={setCurrentP}/>} />
+       
        <Route exact path="/posts/search" element={<Temp currentId={currentId} setCurrentId={setCurrentId} currentP={currentP} setCurrentP={setCurrentP}/>} />
-       <Route exact path="/yourWork" element={<YourWork currentId={currentId} currentP={currentP}/>} />
+       <Route exact path="/posts/yourWork" element={<YourWork currentId={currentId} setCurrentId={setCurrentId} currentP={currentP} setCurrentP={setCurrentP}/>} />
        <Route exact path='/auth' element={<Auth />}/>
        <Route exact path="/user" element={<Exjson currentId={currentId} currentP={currentP} />}/>
      </Routes>

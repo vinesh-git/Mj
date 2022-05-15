@@ -6,6 +6,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Posts from "./components/Posts/Posts";
 import { getPosts, getPostsBySearch } from "./actions/posts";
 import useStyles from "./styles";
+import Pagination from "../src/components/Pagination/Pagination"
 import Brand from "./components/Brand/Brand";
 import ChipInput from 'material-ui-chip-input';
 
@@ -61,6 +62,9 @@ const Temp = ({ currentId, currentP, setCurrentId, setCurrentP }) => {
                 <div item xs={5} sm={7}>
                   <Posts setCurrentId={setCurrentId} setCurrentP={setCurrentP} />
                 </div>
+                <Paper elevation={6}>
+                  <Pagination/>
+                </Paper>
               </div>
           </Grow>
       </div>
