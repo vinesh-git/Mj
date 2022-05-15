@@ -28,7 +28,7 @@ const Exjson = ({ currentId, currentP }) => {
     currentId ? state.posts.find((message) => message._id === currentId) : null
   );
 
-  const [selected, setSelected] = useState("data");
+  const [selected, setSelected] = useState(post.files[0]);
   const [data, setData] = useState([]);
 
   const classes = useStyles();
@@ -57,30 +57,6 @@ const Exjson = ({ currentId, currentP }) => {
   //   element.click();
   // };
 
-
-  // const list1 = [
-  //   {
-  //     id: "data",
-  //     titlee: "Data",
-  //   },
-  //   {
-  //     id: "code",
-  //     titlee: "Code",
-  //   },
-  // ];
-  // useEffect(() => {
-  //   switch (selected) {
-  //     case "data":
-  //       setData(dataPart);
-  //       break;
-  //     case "code":
-  //       setData(codePart);
-  //       break;
-  //     default:
-  //       setData(dataPart);
-  //       break;
-  //   }
-  // }, [selected]);
 
 let fileDisplay;
 let isTable;
@@ -126,6 +102,7 @@ else
                 <img src={home} alt="" style={{ width: "30px" }} />
                 </button> */}
               <div className="col">
+                
               <Button style={{backgroundColor:"white",margin:"10px",width:"auto",border:"2px solid #ff793fce"}} variant='contained' >DOWNLOAD</Button>
 
                {/* <Button style={{backgroundColor:"white",margin:"10px",width:"auto",border:"2px solid #ff793fce"}} variant='contained' onClick={selected==='data'?downloadTxtFile:downloadTxtFilecsv} >DOWNLOAD</Button> */}
@@ -138,6 +115,7 @@ else
               
                 <>
                   <div className="container1">
+                  {/* <a href={`http://localhost:5000/${selected.filePath}`} target="_blank" download={selected.fileName}>Hell</a> */}
                     <div className="description row" >Description</div>
                     <div className="DescriptionContainer row">{post.description}</div>
                   </div>
