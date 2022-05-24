@@ -231,7 +231,7 @@ const Form = ({ currentId, setCurrentId, setTrigger }) => {
 									<i className='fa fa-upload'>Choose excel or csv files</i>
 
 									{/* <input type="file" id="helocsv" name="csvexcelfile" align="center" onChange={e => { loadFileAsTextCsv(e); uploadSingleFile(); updateListcsv(); }} /> */}
-									<input type="file" id="helocsv" name="csvexcelfile" align="center" onChange={e=> {MultipleFilesChange(e)}}  multiple/>
+									<input type="file" id="helocsv" name="csvexcelfile" align="center" onChange={e=> {MultipleFilesChange(e)}} required multiple/>
 
 									<progress id="progressBarcsv" value="0" max="100" ></progress>
 								</button>
