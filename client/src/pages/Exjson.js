@@ -60,12 +60,14 @@ else if(selected.fileType==='application/json' || selected.fileType==='applicati
   // fileDisplay = <textarea rows="60" cols="80" id="textbox" value={JSON.stringify(selected.fileData)}></textarea>
   isTable=true;
 }
-else if(selected.fileType==='text/csv'){
- console.log("ok") 
+else if(selected.fileType==='video/mp4'){
+    fileDisplay=<video style={{maxWidth :'100%', maxHeight : '100%'}} controls><source src={`http://localhost:5000/${selected.filePath}`}  type="video/mp4"></source>
+    Your browser does not support the video tag.</video>
+  
 }
 else
 {
-  fileDisplay = <textarea rows="60" cols="80" id="textbox" value={`File Format is not supported\nPlease downlaod the file to View`}></textarea>
+  fileDisplay = <textarea rows="60" cols="80" id="textbox" value={`Unfortunately, we can't show a preview for this file.\nPlease downlaod the file to View`}></textarea>
 }
 
 const downloadTxtFile = () => {
@@ -133,7 +135,7 @@ const changeMode = () => {
                           </div>
                       </div>
                       <Typography className={classes.title} gutterBottom variant="h5" component="h2">
-                        <div id="creator"> {post.name} </div>
+                        <div id="creator"> {selected.fileName} </div>
                       </Typography>
                       <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">

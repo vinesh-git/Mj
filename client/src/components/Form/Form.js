@@ -56,7 +56,7 @@ const Form = ({ currentId, setCurrentId, setTrigger, user }) => {
 	const fileValidation = () => {
 
 		var selection = document.getElementById('file');
-		const validtxt = ['xlsx','xlx','csv','json','txt','docx','png','jpeg','jpg']
+		const validtxt = ['xlsx','xlx','csv','json','txt','docx','png','jpeg','jpg','mp4']
 		for (var i=0; i<selection.files.length; i++) {
 			var extPos = selection.files[i].name.lastIndexOf('.') + 1;
 			var ext = selection.files[i].name.substring(extPos).toLowerCase();
@@ -98,7 +98,6 @@ const Form = ({ currentId, setCurrentId, setTrigger, user }) => {
 							<span className="contact100-form-title">
 								Input Your DataSets
 							</span>
-
 							<div className="wrap-input100 validate-input bg1 rs1-wrap-input100" >
 								<span className="label-input100">Title of DataSet *</span>
 								<input className="input100" type="text" name="email" placeholder="Enter the Title " value={postData.title} onChange={(e) => setPostData({ ...postData, title: e.target.value })} required />
@@ -108,11 +107,11 @@ const Form = ({ currentId, setCurrentId, setTrigger, user }) => {
 								<span className="label-input100">Tag</span>
 								<input className="input100" type="text" name="phone" placeholder="Enter the tags(comma Separated)" value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value})} />
 							</div>
-						
+							<span className="label-input100">Please use File Formats: Json, Excel, Text, Docx, Image </span>
 							<div className="upload">
+								
 								<button type='button' className='btn-warning'  >
 									<i className='fa fa-upload'>Choose Files</i>
-
 									<input type="file" id="file" name="csvexcelfile" align="center" accept=".gif,.jpg,.jpeg,.png,.doc,.docx" onChange={e=> {MultipleFilesChange(e)}}  multiple/>
 
 									<progress id="progressBarcsv" value="0" max="100" ></progress>
@@ -128,13 +127,14 @@ const Form = ({ currentId, setCurrentId, setTrigger, user }) => {
 								<span className="label-input100">Description</span>
 								<textarea className="input100" name="message" placeholder="Describe the dataset.." value={postData.description} onChange={(e) => setPostData({ ...postData, description: e.target.value })} ></textarea>
 							</div>
-
+							
 							<div className="container-contact100-form-btn">
 								<button className="contact100-form-btn" >
 									<span>
 										Submit
 									</span>
 								</button >
+								
 							</div>
 						</form>
 					</div>
