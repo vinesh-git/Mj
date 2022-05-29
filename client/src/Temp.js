@@ -16,42 +16,23 @@ function useQuery() {
 
 
 
-const Temp = ({ currentId, currentP, setCurrentId, setCurrentP }) => {
+const Temp = ({ currentId, currentP, setCurrentId, setCurrentP}) => {
+  //page
   const dispatch = useDispatch();
   const classes = useStyles();
   //We get Page info from query
   const query = useQuery();
   const history = useNavigate();
   //query.get() will read the page url and finds if there is any thing on the page
-  const page = query.get('page') || 1
-  const searchQuery = query.get('searchQuery')
+  const page = query.get('page') || 1;
+  const searchQuery = query.get('searchQuery');
   const [search, setSearch] = useState('');
   const [tags, setTags] = useState([]);
 
-  useEffect(() => {
-    dispatch(getPosts());
-  }, [currentId, currentP, dispatch]);
+  // useEffect(() => {
+  //   dispatch(getPosts());
+  // }, [currentId, currentP, dispatch]);
   
-  const searchPost = () => {
-    if(search.trim() || tags) {
-      //dispatch some logic to featch our posts
-      //To dispatch something we need to have an action..(Create action to dispatch)
-      //We need to convert array to string. Since we cannot pass the arrays through url parameters
-      
-      dispatch(getPostsBySearch({search, tags: tags.join(',')}));
-      history(`/posts/search?searchQuery=${search || 'none'}&tags=${tags.join(',')}`);
-    }else{
-      history('/');
-    }
-  };
-  const handleKeyPress = (e) => {
-    //if keycode for enter key is 13
-    if(e.KeyCode === 13){
-      searchPost();
-    }
-  };
-  const handleAdd = (tag) => setTags([...tags, tag]);
-  const handleDelete = (tagToDelete) => setTags(tags.filter((tag) => tag !== tagToDelete));
 
 
   return (
@@ -61,10 +42,11 @@ const Temp = ({ currentId, currentP, setCurrentId, setCurrentP }) => {
               <div container justify="space-between" alignItems="stretch" >
                 <div item xs={5} sm={7}>
                   <Posts setCurrentId={setCurrentId} setCurrentP={setCurrentP} />
+                  <Paper elevation={6}>
+                    <Pagination page={page} pageFrom={'Home'}/>
+                  </Paper>
                 </div>
-                <Paper elevation={6}>
-                  <Pagination/>
-                </Paper>
+                
               </div>
           </Grow>
       </div>

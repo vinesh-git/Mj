@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getPostsBySearch, getPosts, createPost, updatePost, likePost, deletePost, singleFileUpload, } from '../controllers/posts.js';
+import { getPostsBySearch, getPosts, createPost, updatePost, likePost, deletePost } from '../controllers/posts.js';
 
 import {upload} from '../helpers/filehelper.js';
 
@@ -8,7 +8,6 @@ import auth from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.post('/singleFile', upload.single('file'), singleFileUpload);
 router.post('/createpost', auth, upload.array('files'), createPost);
 
 router.get('/search', getPostsBySearch);

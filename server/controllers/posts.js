@@ -13,9 +13,19 @@ import PostMessage from '../models/postMessage.js';
 const router = express.Router();
 
 export const getPosts = async (req, res) => { 
+
+    const {page} = req.query;
+    
+
     try {
-        const postMessages = await PostMessage.find();
-        res.status(200).json(postMessages);
+        const LIMIT = 8;
+        //get the starting index of every page
+        const startIndex = (Number(page)-1) * LIMIT;
+        const PublicPosts = await PostMessage.find({mode:'Public'});
+        const total = PublicPosts.length;
+        
+        const posts = await PostMessage.find().sort({_id: -1}).limit(LIMIT).skip(startIndex);
+        res.status(200).json({data: posts, currentPage: Number(page), numberOfPages: Math.ceil(total/ LIMIT)});
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
@@ -38,17 +48,7 @@ export const  getPostsBySearch = async (req, res) => {
     }
 }
 
-export const selectPost = async (req, res) => { 
-    const { id } = req.params;
 
-    try {
-        const post = await PostMessage.findById(id);
-        
-        res.status(200).json(post);
-    } catch (error) {
-        res.status(404).json({ message: error.message });
-    }
-}
 
 // export const createPost = async (req, res) => {
 
@@ -81,7 +81,7 @@ export const selectPost = async (req, res) => {
 //             newPostMessage.code = await csv().fromString(req.body.code);
 //         }
 //         await newPostMessage.save();
-//         res.status(201).json(newPostMessage );
+        // res.status(201).json(newPostMessage );
 //     } catch (error) {
 //         res.status(409).json({ message: error.message });
 //     }
@@ -129,11 +129,11 @@ export const selectPost = async (req, res) => {
 export const updatePost = async (req, res) => {
     
     const { id } = req.params;
-    const { title, code, creator, selectedFile, tags, description } = req.body;
+    const { mode } = req.body;
     
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
 
-    const updatedPost = { creator, title, code, tags, selectedFile, description, _id: id };
+    const updatedPost = { mode, _id: id };
 
     await PostMessage.findByIdAndUpdate(id, updatedPost, { new: true });
 
@@ -179,14 +179,6 @@ export const likePost = async (req, res) => {
     res.json(updatedPost);
 }
 
-
-export const singleFileUpload = async (req, res, next) => {
-    try{
-        res.status(201).send('File Uploaded Successfully')
-    }catch(error){
-        res.status(400).send(error.message);
-    }
-}
 export const createPost = async (req, res, next) => {
     // const dir = '../server/uploads/temp';
     // if (!fs.existsSync(dir)) {
@@ -239,7 +231,7 @@ export const createPost = async (req, res, next) => {
             files: filesArray,
         })
         await newPostMessage.save();
-        res.status(201).send('Files Uploaded Successfully');
+        res.status(201).send(newPostMessage);
     }catch(error){
         res.status(400).send(error.message);
     }

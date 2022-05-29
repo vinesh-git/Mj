@@ -7,6 +7,7 @@ const postSchema = mongoose.Schema({
     name: String,
     tags: [String],
     description: String,
+    mode: String,
     files: [Object],
     likes: {
         type: [String],

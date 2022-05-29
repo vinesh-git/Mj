@@ -11,6 +11,7 @@ export const signin = (formData, history) => async(dispatch) => {
         history('/');
 
     } catch(error) {
+        alert(error);
         console.log(error);
     }
 

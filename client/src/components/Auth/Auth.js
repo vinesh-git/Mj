@@ -19,7 +19,6 @@ const Auth = () => {
     const history = useNavigate();
 
     const posts = useSelector((state) => state);
-    console.log(posts);
 
     const [ShowPassword, setShowPassword] = useState(null);
     const [isSignup, setIsSignup] = useState(false);
@@ -55,7 +54,7 @@ const Auth = () => {
         const token = res?.tokenId;
 
         try{
-            dispatch( { type: 'AUTH', data: { result, token }});
+            dispatch( { type: 'AUTH', data: { result, token, success:true }});
 
             history('/');
         }catch(error) {

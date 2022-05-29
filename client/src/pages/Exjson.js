@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "./Exjson.css";
 
 import "./table.css";
@@ -12,50 +11,38 @@ import {
   Button,
   Typography,
 } from "@material-ui/core/";
+import { useDispatch } from 'react-redux';
 import useStyles from "./style";
 import pattern from "../images/a7.jpg";
 import Plist from "./PageLists/Plist";
 import { useNavigate } from "react-router-dom";
 import Brand from "../components/Brand/Brand";
 import home from "../images/home-button.png";
+import { updatePost } from "../actions/posts";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 const Exjson = ({ currentId, currentP }) => {
-  
+ 
+  const post = currentP;
+  console.log(post)
+  // const post = useSelector((state) =>
+  //   currentId ? state.posts.find((message) => message._id === currentId) : null
+  // );
 
-  const post = useSelector((state) =>
-    currentId ? state.posts.find((message) => message._id === currentId) : null
-  );
-
-  const [selected, setSelected] = useState(post.files[0]);
+  const [selected, setSelected] = useState("data");
+  console.log(selected)
   const [data, setData] = useState([]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
   const classes = useStyles();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
 
-  // const downloadTxtFile = (e) => {
-  //   const element = document.createElement("a");
-  //   const file = new Blob([jf], {
-  //     type: "JSON/plain",
-  //   });
-  //   element.href = URL.createObjectURL(file);
-  //   element.download = "myFile.JSON";
-  //   document.body.appendChild(element);
-  //   element.click();
-  // };
 
-  // const downloadTxtFilecsv = () => {
-  //   const element = document.createElement("a");
-  //   const file = new Blob([csvjf], {
-  //     type: "JSON/plain",
-  //   });
-  //   element.href = URL.createObjectURL(file);
-  //   element.download = "DownloadFile.JSON";
-  //   document.body.appendChild(element);
-  //   element.click();
-  // };
+
 
 
 let fileDisplay;
@@ -68,14 +55,39 @@ else if(selected.fileType==='image/jpeg' || selected.fileType==='image/png')
 {
   fileDisplay = <img src={`http://localhost:5000/${selected.filePath}`}  style={{maxWidth :'100%', maxHeight : '100%'}} className="card-img-top img-responsive" alt="img"/>
 }
-else if(selected.fileType==='application/json')
+else if(selected.fileType==='application/json' || selected.fileType==='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 {
-  fileDisplay = <textarea rows="60" cols="80" id="textbox" value={JSON.stringify(selected.fileData)}></textarea>
+  // fileDisplay = <textarea rows="60" cols="80" id="textbox" value={JSON.stringify(selected.fileData)}></textarea>
   isTable=true;
+}
+else if(selected.fileType==='text/csv'){
+ console.log("ok") 
 }
 else
 {
   fileDisplay = <textarea rows="60" cols="80" id="textbox" value={`File Format is not supported\nPlease downlaod the file to View`}></textarea>
+}
+
+const downloadTxtFile = () => {
+  const element = document.createElement("a");
+  element.href = `http://localhost:5000/${selected.filePath}`
+  element.download = "myFile.JSON";
+  document.body.appendChild(element);
+  element.click();
+};
+const [isPublic, setIsPublic] = useState(currentP.mode)
+const changeMode = () => {
+  if(isPublic === 'Public')
+  {
+    dispatch(updatePost(currentId, {mode:'Private'}));
+    setIsPublic('Private');
+  }
+  else
+  {
+    dispatch(updatePost(currentId, {mode:'Public'}));
+    setIsPublic('Public');
+  }
+  
 }
 
   try {
@@ -92,18 +104,13 @@ else
               <Typography variant="body2"></Typography>
             </div>
             <div className="row">
-                {/* {list1.map((item) => (
-                  <Plist titlee={item.titlee} active={selected === item.id} id={item.id} setSelected={setSelected}/>
-                ))} */}
-                {/* <button id="downloadButton" onClick={selected==='data'?downloadTxtFile:downloadTxtFilecsv}>
-                   JSON
-                </button> */}
-                {/* <button onClick={() => { navigate("/");}}>
-                <img src={home} alt="" style={{ width: "30px" }} />
-                </button> */}
-              <div className="col">
                 
-              <Button style={{backgroundColor:"white",margin:"10px",width:"auto",border:"2px solid #ff793fce"}} variant='contained' >DOWNLOAD</Button>
+              <div className="col">
+              <Button style={{backgroundColor:"white",margin:"10px",width:"auto",border:"2px solid #ff793fce"}} variant='contained' onClick={downloadTxtFile}>DOWNLOAD</Button>
+              {(  user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+                <Button style={{backgroundColor:"white",margin:"10px",width:"auto",border:"2px solid #ff793fce"}} variant='contained' onClick={changeMode}>{isPublic}</Button>
+
+              )}
 
                {/* <Button style={{backgroundColor:"white",margin:"10px",width:"auto",border:"2px solid #ff793fce"}} variant='contained' onClick={selected==='data'?downloadTxtFile:downloadTxtFilecsv} >DOWNLOAD</Button> */}
               </div>
@@ -115,7 +122,6 @@ else
               
                 <>
                   <div className="container1">
-                  {/* <a href={`http://localhost:5000/${selected.filePath}`} target="_blank" download={selected.fileName}>Hell</a> */}
                     <div className="description row" >Description</div>
                     <div className="DescriptionContainer row">{post.description}</div>
                   </div>
@@ -131,7 +137,7 @@ else
                       </Typography>
                       <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
-                          d.code
+                          {/* d.code */}
                         </Typography>
                         <Typography className={classes.title}  variant="h5" component="h2">
                         <ul  style={{width:"100%",height:"200px",padding:"10px",overflow:"auto"}}>
@@ -180,7 +186,7 @@ else
       </>
     );
   } catch (err) {
-    return <>{console.log(err)}</>;
+    console.log(typeof post)
   }
 };
 

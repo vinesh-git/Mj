@@ -2,18 +2,13 @@ import React, { useEffect, useState } from "react";
 import {
   Grid,
   CircularProgress,
-  Typography,
   Button,
-  AppBar,
   TextField,
-  withWidth,
-  IconButton,
 } from "@material-ui/core";
 import { SearchOutlined } from '@material-ui/icons';
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch  } from "react-redux";
 import Header from "../Header/Header";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import Brand from "../Brand/Brand";
 import Post from "./Post/Post";
 import useStyles from "./styles";
@@ -30,7 +25,9 @@ const Posts = ({ setCurrentId, setCurrentP }) => {
   const history = useNavigate();
   const location = useLocation();
 
-  const posts = useSelector((state) => state.posts);
+  const {posts} = useSelector((state) => state.posts);
+
+
   const classes = useStyles();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
 
@@ -152,23 +149,10 @@ const Posts = ({ setCurrentId, setCurrentP }) => {
           alignItems="stretch"
           spacing={3}
         >
-          {posts.map((post) =>
-            !post ? (
-              <CircularProgress />
-            ) : (
-              <Grid
-                key={post._id}
-                item
-                xs={12}
-                sm={6}
-                md={3}
-                style={{ padding: "50px 0px" }}
-              >
-                <Post
-                  post={post}
-                  setCurrentId={setCurrentId}
-                  setCurrentP={setCurrentP}
-                />
+          {posts?.map((post) =>
+            !post ? (<CircularProgress />) : ( post.mode === 'Public' ) && (
+              <Grid key={post._id} item xs={12} sm={6} md={3} style={{ padding: "50px 0px" }}>
+                <Post post={post} setCurrentId={setCurrentId} setCurrentP={setCurrentP} />
               </Grid>
             )
           )}
@@ -242,23 +226,10 @@ const Posts = ({ setCurrentId, setCurrentP }) => {
           alignItems="stretch"
           spacing={3}
         >
-        {posts.map((post) =>
-            !post ? (
-              <CircularProgress />
-            ) : (
-              <Grid
-                key={post._id}
-                item
-                xs={12}
-                sm={6}
-                md={3}
-                style={{ padding: "50px 0px" }}
-              >
-                <Post
-                  post={post}
-                  setCurrentId={setCurrentId}
-                  setCurrentP={setCurrentP}
-                />
+        {posts?.map((post) =>
+            !post ? (<CircularProgress />) : ( post.mode === 'Public' ) && (
+              <Grid key={post._id} item xs={12} sm={6} md={3} style={{ padding: "50px 0px" }}>
+                <Post post={post} setCurrentId={setCurrentId} setCurrentP={setCurrentP} />
               </Grid>
             )
           )}

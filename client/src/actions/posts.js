@@ -1,10 +1,10 @@
-import { FETCH_BY_SEARCH, FETCH_ALL, CREATE, UPDATE, DELETE, LIKE, SELECT } from '../constants/actionTypes';
+import { FETCH_BY_SEARCH, FETCH_ALL, CREATE, UPDATE, DELETE, LIKE } from '../constants/actionTypes';
 
 import * as api from '../api/index.js';
 
-export const getPosts = () => async (dispatch) => {
+export const getPosts = (page) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
+    const { data } = await api.fetchPosts(page); 
     dispatch({ type: FETCH_ALL, payload: data }); //sending data to reducers
   } catch (error) {
     console.log(error);
@@ -31,6 +31,7 @@ export const getPostsBySearch = (searchQuery) => async (dispatch) => {
 // };
 
 export const updatePost = (id, post) => async (dispatch) => {
+  console.log("active")
   try {
     const { data } = await api.updatePost(id, post);
     dispatch({ type: UPDATE, payload: data });
@@ -56,14 +57,3 @@ export const deletePost = (id) => async (dispatch) => {
     console.log(error.message);
   }
 };
-
-export const selectPost = (id) => async (dispatch) => {
-  try {
-    await api.selectPost(id);
-    dispatch({ type: SELECT, payload: id });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
-
-console.log(selectPost)

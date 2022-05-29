@@ -36,7 +36,7 @@ const Header = ({user}) => {
         
     </div>
     <Popup trigger={buttonPopup} setTrigger = {setButtonPopup}>
-      <Form currentId={currentId} setCurrentId={setCurrentId} setTrigger={setButtonPopup}/>
+      <Form currentId={currentId} setCurrentId={setCurrentId} setTrigger={setButtonPopup} user={user}/>
         {/* <Form currentId={currentId} setCurrentId={setCurrentId} setTrigger={setButtonPopup}></Form> */}
     </Popup>
     {/* <Typography variant='h6'>{user.result.name}</Typography> */}
