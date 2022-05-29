@@ -24,8 +24,8 @@ app.use('/user', userRoutes);
 
 
 
-// const CONNECTION_URL = 'mongodb+srv://vivek:vivek123@cluster0.mydlu.mongodb.net/mernstack?retryWrites=true&w=majority';
-const CONNECTION_URL = 'mongodb://localhost/LocData1';
+const CONNECTION_URL = 'mongodb+srv://vivek:vivek123@cluster0.mydlu.mongodb.net/mernstack?retryWrites=true&w=majority';
+// const CONNECTION_URL = 'mongodb://localhost/LocData1';
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(CONNECTION_URL, {
