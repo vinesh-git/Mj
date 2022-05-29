@@ -70,7 +70,7 @@ else
 const downloadTxtFile = () => {
   const element = document.createElement("a");
   element.href = `http://localhost:5000/${selected.filePath}`
-  element.download = "myFile.JSON";
+  element.target= "_blank"
   document.body.appendChild(element);
   element.click();
 };
