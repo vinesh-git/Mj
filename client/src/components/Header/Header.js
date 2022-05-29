@@ -23,10 +23,10 @@ const Header = ({user}) => {
         <div className="col-9">
           <div id="description">
             <div id="h1">Datasets</div>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Eu feugiat pretium nibh ipsum consequat nisl vel. Parturient montes nascetur ridiculus mus. Nulla aliquet enim tortor at auctor urna nunc id.
-           <br></br> <button className=" primary row" style={{margin:"30px 1px"}} onClick={() => setButtonPopup(true)}>
+            Explore, analyze, and share quality data. Learn more about data types, creating, and collaborating.INAI is an initiative to apply AI to population scale problems in the Indian context, combining research and translation. This collaborative effort, championed by Intel and catalyzed by the Government of Telangana           <br></br> <button className=" primary row" style={{margin:"30px 1px"}} onClick={() => setButtonPopup(true)}>
               + New Dataset
             </button> 
+            <p style={{color : 'red'}}>* Please reload the page if the uploaded document is not visible *</p>
           </div>
         </div>
         <div className="col-3 right" id='image'>

@@ -113,14 +113,14 @@ const Form = ({ currentId, setCurrentId, setTrigger, user }) => {
 								<span className="label-input100">Tag</span>
 								<input className="input100" type="text" name="phone" placeholder="Enter the tags(comma Separated)" value={postData.tags} onChange={(e) => setPostData({ ...postData, tags: e.target.value})} />
 							</div>
-							<span className="label-input100">Please use File Formats: Json, Excel, Text, Docx, Image </span>
+							<span className="label-input100" style={{color : 'red'}}>* Please use File Formats: Json, Excel, Text, Docx, Image,mp4 * </span>
 							<div className="upload">
 								
 								<button type='button' className='btn-warning'  >
 									<i className='fa fa-upload'>Choose Files</i>
 									<input type="file" id="file" name="" align="center" accept=".xlsx,.xlx.,.csv,.json,.txt,.docx,.png,.jpeg,.jpg,.mp4" onChange={e=> {MultipleFilesChange(e);getFileNames()}}  multiple/>
 
-									<progress id="progressBarcsv" value="0" max="100" ></progress>
+									{/* <progress id="progressBarcsv" value="0" max="100" ></progress> */}
 								</button>
 							</div>
 							<ul>

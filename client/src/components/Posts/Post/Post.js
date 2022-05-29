@@ -76,7 +76,7 @@ const Post = ({ post, setCurrentId, setCurrentP }) => {
             
           }} style={{padding:"0px",margin:"0px", borderRadius:"15px 15px 0px 0px"}}
         >
-          <CardMedia className={classes.media} image={ImagePost} style={{margin:'0px'}} title={post.title} />
+          <CardMedia className={classes.media} image={i4} style={{margin:'0px'}} title={post.title} />
           <div className={classes.overlay}>
             <div style={{ fontSize: "3vh" }}>{post.title}</div>
             <Typography variant="body2">
