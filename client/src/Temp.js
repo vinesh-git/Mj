@@ -1,14 +1,9 @@
-import React, { useState, useEffect } from "react";
-import {Container,Grow, AppBar, TextField, Button, Paper} from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import React from "react";
+import {Grow, Paper} from "@material-ui/core";
 
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Posts from "./components/Posts/Posts";
-import { getPosts, getPostsBySearch } from "./actions/posts";
-import useStyles from "./styles";
 import Pagination from "../src/components/Pagination/Pagination"
-import Brand from "./components/Brand/Brand";
-import ChipInput from 'material-ui-chip-input';
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Exjson.css";
 
 import "./table.css";
@@ -17,7 +17,6 @@ import pattern from "../images/a7.jpg";
 import Plist from "./PageLists/Plist";
 import { useNavigate } from "react-router-dom";
 import Brand from "../components/Brand/Brand";
-import home from "../images/home-button.png";
 import { updatePost } from "../actions/posts";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -26,19 +25,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const Exjson = ({ currentId, currentP }) => {
  
   const post = currentP;
-  console.log(post)
   // const post = useSelector((state) =>
   //   currentId ? state.posts.find((message) => message._id === currentId) : null
   // );
 
-  const [selected, setSelected] = useState("data");
-  console.log(selected)
-  const [data, setData] = useState([]);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-
   const classes = useStyles();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+
+  const [selected, setSelected] = useState(post.files[0]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
 
 
 
@@ -188,7 +185,7 @@ const changeMode = () => {
       </>
     );
   } catch (err) {
-    console.log(typeof post)
+    return <>{navigate('/')}</>
   }
 };
 
