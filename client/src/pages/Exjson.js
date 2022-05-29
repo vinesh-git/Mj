@@ -74,6 +74,9 @@ const downloadTxtFile = () => {
   document.body.appendChild(element);
   element.click();
 };
+
+
+
 const [isPublic, setIsPublic] = useState(currentP.mode)
 const changeMode = () => {
   if(isPublic === 'Public')

@@ -27,7 +27,6 @@ const Form = ({ currentId, setCurrentId, setTrigger, user }) => {
 	
 	const [multipleFiles, setMultipleFiles ] = useState('');
 
-
 	const MultipleFilesChange = (e) => {
 		setMultipleFiles(e.target.files);
 		setPostData({...postData, selectedMFile: e.target.files});
@@ -51,18 +50,25 @@ const Form = ({ currentId, setCurrentId, setTrigger, user }) => {
 		await createPost(formData);
 	}
 
+	function getFileNames() {
+		 
+		var input = document.forms['dform']['file'];
+		var output = document.getElementById('fileListcsv');
+		var children = "";
+		for (var i = 0; i < input.files.length; i++) {
+		  children += '<li>' + 'p'+input.files.item(i).name +'p'+ '</li>';
+		}
+		output.innerHTML = '<ul>'+children+'</ul>';
+	  
+	  }
 
-		
 	const fileValidation = () => {
-
 		var selection = document.getElementById('file');
 		const validtxt = ['xlsx','xlx','csv','json','txt','docx','png','jpeg','jpg','mp4']
 		for (var i=0; i<selection.files.length; i++) {
 			var extPos = selection.files[i].name.lastIndexOf('.') + 1;
 			var ext = selection.files[i].name.substring(extPos).toLowerCase();
-			console.log(ext);
 			var result = validtxt.includes(ext);
-			console.log(result)
 			if(!result)  {
 				alert('not an accepted file extension');
 				return false;
@@ -112,14 +118,14 @@ const Form = ({ currentId, setCurrentId, setTrigger, user }) => {
 								
 								<button type='button' className='btn-warning'  >
 									<i className='fa fa-upload'>Choose Files</i>
-									<input type="file" id="file" name="csvexcelfile" align="center" accept=".gif,.jpg,.jpeg,.png,.doc,.docx" onChange={e=> {MultipleFilesChange(e)}}  multiple/>
+									<input type="file" id="file" name="" align="center" accept=".xlsx,.xlx.,.csv,.json,.txt,.docx,.png,.jpeg,.jpg,.mp4" onChange={e=> {MultipleFilesChange(e);getFileNames()}}  multiple/>
 
 									<progress id="progressBarcsv" value="0" max="100" ></progress>
 								</button>
 							</div>
-							<h5 id='fileListcsv'></h5>
-							<h3 id="statuscsv"></h3>
-							<p id="loaded_n_totalcsv"></p>
+							<ul>
+								<li id='fileListcsv'></li> 
+							</ul>
 
 
 
