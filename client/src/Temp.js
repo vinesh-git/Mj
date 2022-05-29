@@ -16,23 +16,11 @@ function useQuery() {
 
 
 
-const Temp = ({ currentId, currentP, setCurrentId, setCurrentP}) => {
-  //page
-  const dispatch = useDispatch();
-  const classes = useStyles();
+const Temp = ({setCurrentId, setCurrentP}) => {
   //We get Page info from query
   const query = useQuery();
-  const history = useNavigate();
   //query.get() will read the page url and finds if there is any thing on the page
   const page = query.get('page') || 1;
-  const searchQuery = query.get('searchQuery');
-  const [search, setSearch] = useState('');
-  const [tags, setTags] = useState([]);
-
-  // useEffect(() => {
-  //   dispatch(getPosts());
-  // }, [currentId, currentP, dispatch]);
-  
 
 
   return (

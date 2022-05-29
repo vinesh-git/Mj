@@ -1,11 +1,9 @@
-import express, { json } from 'express';
+import express from 'express';
 import mongoose from 'mongoose';
-import csvToJson from 'convert-csv-to-json';
-import csv from 'csvtojson';
-import fs from 'fs';
+import fs,{ readFileSync,unlinkSync } from 'fs';
 
 import excelToJson from 'convert-excel-to-json';
-import { readFileSync,unlinkSync } from 'fs';
+
 
 import PostMessage from '../models/postMessage.js';
 
@@ -47,84 +45,6 @@ export const  getPostsBySearch = async (req, res) => {
         res.status(404).json({message: error.message});
     }
 }
-
-
-
-// export const createPost = async (req, res) => {
-
-//     console.log(req.body.selectedMFile);
-//     const post = req.body;
-//     let code;
-//     var flag = false;
-//     if(req.body.code == "")
-//     {
-//         flag = true;
-//         code = "No Input provided";
-//     }
-//     else if(req.body.code == "EMPTY" ){
-//         flag = true;
-//         code =  excelToJson({
-//             source: readFileSync('../server/uploads/sample.xls') // fs.readFileSync return a Buffer
-//         });
-//         try{
-//             unlinkSync('../server/uploads/sample.xls');
-//            }catch(err){
-//             console.log(err);
-//            }
-//     }
-    
-//     const newPostMessage = new PostMessage({...post, code:code, creator: req.userId, createdAt: new Date().toISOString()})
-//     // const newPostMessage = new PostMessage({ title, code, selectedFile, creator, tags,description })
-    
-//     try {
-//         if(!flag){
-//             newPostMessage.code = await csv().fromString(req.body.code);
-//         }
-//         await newPostMessage.save();
-        // res.status(201).json(newPostMessage );
-//     } catch (error) {
-//         res.status(409).json({ message: error.message });
-//     }
-// }
-
-// export const createPost = async (req, res) => {
-//     // const { title, code, selectedFile, creator, tags,description } = req.body;
-//     const title = req.body.title;
-//     const selectedFile = req.body.selectedFile;
-//     const creator = req.userId;
-//     const tags = req.body.tags;
-//     const description = req.body.description;
-//     let code;
-//     var flag = false;
-//     if(req.body.code == "")
-//     {
-//         flag = true;
-//         code = "No Input provided";
-//     }
-//     else if(req.body.code == "EMPTY" ){
-//         flag = true;
-//         code =  excelToJson({
-//             source: readFileSync('../server/uploads/sample.xls') // fs.readFileSync return a Buffer
-//         });
-//         try{
-//             unlinkSync('../server/uploads/sample.xls');
-//            }catch(err){
-//             console.log(err);
-//            }
-//     }
-    
-//     const newPostMessage = new PostMessage({ title, code, selectedFile, creator, tags,description })
-    
-//     try {
-//         if(!flag){
-//             newPostMessage.code = await csv().fromString(req.body.code);
-//         }
-//         await newPostMessage.save();
-//         res.status(201).json(newPostMessage );
-//     } catch (error) {
-//         res.status(409).json({ message: error.message });
-//     }
-// }
 
 export const updatePost = async (req, res) => {
     
@@ -180,14 +100,6 @@ export const likePost = async (req, res) => {
 }
 
 export const createPost = async (req, res, next) => {
-    // const dir = '../server/uploads/temp';
-    // if (!fs.existsSync(dir)) {
-    //     fs.mkdirSync(dir, {
-    //         recursive: true
-    //     });
-    // }
-    // console.log(req.body)
-    // console.log(req.files);
     try{
         let filesArray = [];
         req.files.forEach(element => {
@@ -198,12 +110,6 @@ export const createPost = async (req, res, next) => {
                             source: readFileSync(element.path) // fs.readFileSync return a Buffer
                             });
             }
-            // else if(element.mimetype == 'text/csv')
-            // {
-            //     // csv()
-            //     // .fromFile(csvFilePath)
-            //     // .then(data)
-            // }
             else if(element.mimetype == 'text/plain')
             {
                 data = fs.readFileSync(element.path).toString().split('\n');
