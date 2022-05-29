@@ -66,7 +66,7 @@ if(selected.fileType==='text/plain')
 }
 else if(selected.fileType==='image/jpeg' || selected.fileType==='image/png')
 {
-  fileDisplay = <img src={`http://localhost:5000/${selected.filePath}`} height="200" className="card-img-top img-responsive" alt="img"/>
+  fileDisplay = <img src={`http://localhost:5000/${selected.filePath}`}  style={{maxWidth :'100%', maxHeight : '100%'}} className="card-img-top img-responsive" alt="img"/>
 }
 else if(selected.fileType==='application/json')
 {
