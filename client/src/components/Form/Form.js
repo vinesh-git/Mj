@@ -111,7 +111,7 @@ const Form = ({ currentId, setCurrentId, setTrigger, user }) => {
 						
 							<div className="upload">
 								<button type='button' className='btn-warning'  >
-									<i className='fa fa-upload'>Choose excel or csv files</i>
+									<i className='fa fa-upload'>Choose Files</i>
 
 									<input type="file" id="file" name="csvexcelfile" align="center" accept=".gif,.jpg,.jpeg,.png,.doc,.docx" onChange={e=> {MultipleFilesChange(e)}}  multiple/>
 
